@@ -18,6 +18,7 @@ static NSString *kArchiveKey = @"archive";
 - (void)archiveListToFile:(NSString*)path;
 - (void)getListFromFile:(NSString *)path;
 - (NSString *)getArchivePath;
+- (void)didEnterBackground;
 @end
 
 @implementation UserSelectController
@@ -28,6 +29,7 @@ static NSString *kArchiveKey = @"archive";
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground) name:@"didEnterBackground" object:nil];
     [self getListFromFile:[self getArchivePath]];
 }
 
@@ -39,9 +41,9 @@ static NSString *kArchiveKey = @"archive";
     // Release any retained subviews of the main view.
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)dealloc {
     [self archiveListToFile:[self getArchivePath]];
-    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didEnterBackground" object:nil];
 }
 
 #pragma mark - Table view data source
@@ -122,6 +124,10 @@ static NSString *kArchiveKey = @"archive";
     [self.tableView reloadData];
     
     return YES;
+}
+
+- (void)didEnterBackground {
+    [self archiveListToFile:[self getArchivePath]];
 }
 
 @end

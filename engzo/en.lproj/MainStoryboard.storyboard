@@ -53,7 +53,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="2" kind="push" id="tQl-i6-knp"/>
+                                            <segue destination="VZH-qG-gXR" kind="push" id="sxb-m5-1Og"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -83,7 +83,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QXz-wz-hll">
-                                <rect key="frame" x="108" y="396" width="104" height="37"/>
+                                <rect key="frame" x="108" y="359" width="104" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="点击录音">
@@ -105,6 +105,39 @@
                         <outlet property="recordButton" destination="QXz-wz-hll" id="C7e-hy-ffv"/>
                     </connections>
                 </viewController>
+            </objects>
+            <point key="canvasLocation" x="956" y="-164"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="W0S-e4-Xdj">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WYB-5s-yYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="VZH-qG-gXR" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QW8-aw-RHD">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="wuL-wY-tD6">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="2" kind="push" id="KfC-IG-nhq"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="VZH-qG-gXR" id="lfD-gn-erh"/>
+                            <outlet property="delegate" destination="VZH-qG-gXR" id="TCY-gz-9uI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="iJp-1m-nnB"/>
+                </tableViewController>
             </objects>
             <point key="canvasLocation" x="478" y="-164"/>
         </scene>
