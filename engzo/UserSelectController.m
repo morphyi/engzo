@@ -7,11 +7,17 @@
 //
 
 #import "UserSelectController.h"
+#import "User.h"
+
+static NSString *kArchiveKey = @"archive";
 
 @interface UserSelectController ()
 
 @property (strong, nonatomic) NSMutableArray *userList;
 
+- (void)archiveListToFile:(NSString*)path;
+- (void)getListFromFile:(NSString *)path;
+- (NSString *)getArchivePath;
 @end
 
 @implementation UserSelectController
@@ -22,13 +28,20 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self getListFromFile:[self getArchivePath]];
 }
 
 - (void)viewDidUnload
 {
+    [self archiveListToFile:[self getArchivePath]];
     self.tableView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self archiveListToFile:[self getArchivePath]];
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark - Table view data source
@@ -47,17 +60,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    PoiListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PoiListCell"];
-//    
-//    const NSInteger index = indexPath.row;
-//    PoiInfo *info = [_poiListWrapper.poiInfos objectAtIndex:index];
-//    [cell.logoImage setImageWithURL:[NSURL URLWithString:@"http://collider.com/wp-content/uploads/lego-image.jkkpg"]
-//                   placeholderImage:[[UIImage imageNamed:@"class_icon_org_jianshen.png"] imageTintedWithColor:[UIColor redColor] fraction:0.0]];
-//    cell.nameLabel.text = info.name;
-//    cell.ratingBar.rate = info.rank / 10.;
-//    
-//    return cell;
-    return nil;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"user cell"];
+    User *user = [self.userList objectAtIndex:indexPath.row];
+    cell.textLabel.text = user.userName;
+    return cell;
 }
 
 #pragma mark - Table view delegate
@@ -73,5 +79,49 @@
      */
 }
 
+- (void)archiveListToFile:(NSString *)path {
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:self.userList forKey:kArchiveKey];
+    [archiver finishEncoding];
+    [data writeToFile:path atomically: YES];
+}
+
+- (void)getListFromFile:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if ([fileManager fileExistsAtPath: path]){
+        NSData *data = [[NSData alloc] initWithContentsOfFile: path];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
+        self.userList = [unarchiver decodeObjectForKey:kArchiveKey];
+    }
+}
+
+- (NSString *)getArchivePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"userList.archive"];
+    
+    return path;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField*)aTextField
+{
+    NSLog(@"done:%d", aTextField.hasText);
+
+    [aTextField resignFirstResponder];
+    
+    if (!self.userList) {
+        self.userList = [[NSMutableArray alloc] init];
+    }
+    
+    User *user = [[User alloc] init];
+    user.userName = aTextField.text;
+    NSLog(@"userName:%@", user.userName);
+    [self.userList addObject:user];
+    [self.tableView reloadData];
+    
+    return YES;
+}
 
 @end
