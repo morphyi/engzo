@@ -98,17 +98,33 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="textview" id="5Je-v9-32U">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="351"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="273"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="we8-d3-dk8">
+                                <rect key="frame" x="108" y="308" width="104" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="点击播放">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="play_button_pressed:" destination="2" eventType="touchUpInside" id="V1r-b8-y46"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="X48-f8-XM1"/>
                     <connections>
+                        <outlet property="playButton" destination="we8-d3-dk8" id="3Nn-F3-CLk"/>
                         <outlet property="recordButton" destination="QXz-wz-hll" id="C7e-hy-ffv"/>
                         <outlet property="textView" destination="5Je-v9-32U" id="BoU-5l-KIJ"/>
                     </connections>
@@ -179,6 +195,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AudioRecorderController.h"/>
             <relationships>
                 <relationship kind="action" name="record_button_pressed:"/>
+                <relationship kind="outlet" name="playButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="recordButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
             </relationships>

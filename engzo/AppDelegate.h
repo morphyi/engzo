@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+- (NSString *)getArchivePath:(NSString *)userName;
+- (User *)getUserFromFile:(NSString *)path;
+- (void)archiveUser:(User *)aUser ToFile:(NSString*)path;
 
 @end

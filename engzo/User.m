@@ -15,13 +15,12 @@ static NSString *kNameKey = @"name";
     NSMutableArray *_finishedList;
 }
 
-- (BOOL)checkConflict:(NSUInteger)index;//检查是否已录过，不要重复添加
 @end
 
 @implementation User
 @synthesize userName;
 
-- (BOOL)checkConflict:(NSUInteger)index {
+- (BOOL)checkExisted:(NSUInteger)index; {
     if (!_finishedList) {
         return NO;
     }
@@ -36,7 +35,7 @@ static NSString *kNameKey = @"name";
 }
 
 - (void)addFinishedItem:(NSUInteger)index {
-    if ([self checkConflict:index]) {
+    if ([self checkExisted:index]) {
         return;
     }
     

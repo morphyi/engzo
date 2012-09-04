@@ -9,17 +9,20 @@
 #import "AudioRecorderController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CoreAudio/CoreAudioTypes.h>
+#import "AppDelegate.h"
 
 @interface AudioRecorderController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+
 @property (strong, nonatomic) AVAudioRecorder *recorder;
 @property (assign, nonatomic) BOOL recording;
 @property (strong, nonatomic) AVAudioPlayer * player;
 
 - (void)startRecord;
-- (NSURL *)getRecordFilePath;
+- (NSURL *)getRecordFilePath:(NSString *)userName forSentenceIndex:(NSUInteger)index;
 - (void)playRecord;
 - (void)deleteTmpFile;
 
@@ -28,9 +31,11 @@
 @implementation AudioRecorderController
 @synthesize textView;
 @synthesize recordButton;
+@synthesize playButton;
 @synthesize recorder;
 @synthesize recording;
-@synthesize sentence;
+@synthesize sentenceList, sentenceIndex;
+@synthesize user;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,13 +60,16 @@
 	//Activate the session
 	[audioSession setActive:YES error: &error];
     
-    self.textView.text = sentence;
+    self.textView.text = [self.sentenceList objectAtIndex:self.sentenceIndex];
+    
+    self.playButton.hidden = ![self.user checkExisted:self.sentenceIndex];
 }
 
 - (void)viewDidUnload
 {
     [self setRecordButton:nil];
     [self setTextView:nil];
+    [self setPlayButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -72,8 +80,8 @@
 }
 
 
-- (NSURL *)getRecordFilePath {
-    return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%@.%@", @"test", @"caf"]]];
+- (NSURL *)getRecordFilePath:(NSString *)userName forSentenceIndex:(NSUInteger)index {
+    return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%@%u.%@", userName, index, @"alac"]]];
 }
 
 - (IBAction)record_button_pressed:(id)sender {
@@ -84,10 +92,18 @@
     } else {
         self.recording = NO;
         [self.recordButton setTitle:@"点击录音" forState:UIControlStateNormal];
+        self.playButton.hidden = NO;
         //Stop the recorder.
 		[recorder stop];
-        [self playRecord];
+        
+        [self.user addFinishedItem:self.sentenceIndex];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate archiveUser:self.user ToFile:[appDelegate getArchivePath:self.user.userName]];
     }
+}
+
+- (IBAction)play_button_pressed:(id)sender {
+    [self playRecord];
 }
 
 - (void)startRecord {
@@ -111,8 +127,10 @@
     //This sample was one I found online and seems to be a good choice for making a tmp file that
     //will not overwrite an existing one.
     //I know this is a mess of collapsed things into 1 call.  I can break it out if need be.
-    NSURL *recordedTmpFile = [self getRecordFilePath];
+    NSURL *recordedTmpFile = [self getRecordFilePath:self.user.userName forSentenceIndex:self.sentenceIndex];
     NSLog(@"Using File called: %@",recordedTmpFile);
+    
+    [self checkFile:recordedTmpFile];
     
     NSError *error;
     //Setup the recorder to use this file and record to it.
@@ -137,24 +155,32 @@
     NSLog(@"playRecord");
     NSError *error;
     //Setup the AVAudioPlayer to play the file that we just recorded.
-    if (!self.player) {
-        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[self getRecordFilePath] error:&error];
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[self getRecordFilePath:self.user.userName forSentenceIndex:self.sentenceIndex] error:&error];
+    
+    if (error) {
+        NSLog(@"%@", error);
+    }
+    
+	[self.player prepareToPlay];
+	[self.player play];
+    
+}
+
+- (void)checkFile:(NSURL *)filePath {
+    NSLog(@"checkFile");
+    
+    //Clean up the temp file.
+	NSFileManager * fm = [NSFileManager defaultManager];
+    if ([fm fileExistsAtPath:[filePath path]]) {
+        NSLog(@"file existed");
+        
+        NSError *error;
+        [fm removeItemAtPath:[filePath path] error:&error];
         
         if (error) {
             NSLog(@"%@", error);
         }
-    }	
-    
-	[self.player prepareToPlay];
-	[self.player play];
-
-}
-
-- (void)deleteTmpFile {
-    NSError *error;
-    //Clean up the temp file.
-	NSFileManager * fm = [NSFileManager defaultManager];
-	[fm removeItemAtPath:[[self getRecordFilePath] path] error:&error];
+    };
 }
 
 @end

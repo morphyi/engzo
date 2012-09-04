@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+static NSString *kArchiveKey = @"archive";
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -42,6 +44,35 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Archive related
+- (void)archiveUser:(User *)aUser ToFile:(NSString*)path {
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:aUser forKey:kArchiveKey];
+    [archiver finishEncoding];
+    [data writeToFile:path atomically: YES];
+}
+
+- (User *)getUserFromFile:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if ([fileManager fileExistsAtPath: path]){
+        NSData *data = [[NSData alloc] initWithContentsOfFile: path];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
+        return (User *)[unarchiver decodeObjectForKey:kArchiveKey];
+    }
+    
+    return nil;
+}
+
+- (NSString *)getArchivePath:(NSString *)aUserName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.archive", aUserName]];
+    
+    return path;
 }
 
 @end

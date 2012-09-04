@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface AudioRecorderController : UIViewController
-@property (copy, nonatomic) NSString *sentence;
+@property (copy, nonatomic) NSArray *sentenceList;
+@property (assign, nonatomic) NSUInteger sentenceIndex;
+@property (weak, nonatomic) User *user;
 @end

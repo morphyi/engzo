@@ -8,16 +8,14 @@
 
 #import "SentenceListController.h"
 #import "User.h"
+#import "AppDelegate.h"
+#import "AudioRecorderController.h"
 
 static NSString *kArchiveKey = @"archive";
 
 @interface SentenceListController ()
 @property (strong, nonatomic) NSArray *sentenceList;
 @property (strong, nonatomic) User *user;
-
-- (NSString *)getArchivePath:(NSString *)userName;
-- (User *)getUserFromFile:(NSString *)path;
-- (void)archiveUser:(User *)aUser ToFile:(NSString*)path;
 
 -(BOOL)isFinished:(NSUInteger)index;//第index＋1条sentence是否已录制过
 @end
@@ -44,13 +42,18 @@ static NSString *kArchiveKey = @"archive";
     
     NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"sentences" ofType:@"plist"];
     self.sentenceList = [NSArray arrayWithContentsOfFile:plistPath];
-    
-    User *tmpUser = [self getUserFromFile:[self getArchivePath:self.userName]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    User *tmpUser = [appDelegate getUserFromFile:[appDelegate getArchivePath:self.userName]];
     if (!tmpUser) {
         tmpUser = [[User alloc] init];
         tmpUser.userName = self.userName;
     }
     self.user = tmpUser;
+    
+    [self.tableView reloadData];
 }
 
 - (void)viewDidUnload
@@ -98,35 +101,6 @@ static NSString *kArchiveKey = @"archive";
      */
 }
 
-#pragma mark - Archive related
-- (void)archiveUser:(User *)aUser ToFile:(NSString*)path {
-    NSMutableData *data = [[NSMutableData alloc] init];
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    [archiver encodeObject:aUser forKey:kArchiveKey];
-    [archiver finishEncoding];
-    [data writeToFile:path atomically: YES];
-}
-
-- (User *)getUserFromFile:(NSString *)path {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    if ([fileManager fileExistsAtPath: path]){
-        NSData *data = [[NSData alloc] initWithContentsOfFile: path];
-        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
-        return (User *)[unarchiver decodeObjectForKey:kArchiveKey];
-    }
-    
-    return nil;
-}
-
-- (NSString *)getArchivePath:(NSString *)aUserName {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.archive", aUserName]];
-    
-    return path;
-}
-
 #pragma mark -
 -(BOOL)isFinished:(NSUInteger)index {
     NSArray *finishedList = self.user.finishedList;
@@ -141,8 +115,11 @@ static NSString *kArchiveKey = @"archive";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-    [segue.destinationViewController performSelector:@selector(setSentence:)
-                                          withObject:[self.sentenceList objectAtIndex:path.row]];
+    
+    AudioRecorderController *destinationViewController = segue.destinationViewController;
+    destinationViewController.sentenceIndex = path.row;
+    destinationViewController.sentenceList = self.sentenceList;
+    destinationViewController.user = self.user;
 }
 
 @end
