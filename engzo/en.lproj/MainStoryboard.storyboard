@@ -1,10 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12B19" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12B19" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DE2-BD-dli">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
+        <!--User Select Controller-->
+        <scene sceneID="9ft-lg-Trz">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LHA-jr-Yoj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="rwv-jD-dDJ" customClass="UserSelectController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0oG-4h-q21">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ND4-VZ-Zpf">
+                                <rect key="frame" x="20" y="20" width="280" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="WWj-3P-xKS">
+                                <rect key="frame" x="0.0" y="59" width="327" height="357"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="user cell" textLabel="bwv-cK-zJp" style="IBUITableViewCellStyleDefault" id="2zE-d1-ejN">
+                                        <rect key="frame" x="0.0" y="22" width="327" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="327" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bwv-cK-zJp">
+                                                    <rect key="frame" x="10" y="0.0" width="307" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="usZ-9Y-4HT"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-5" y="-164"/>
+        </scene>
         <!--Audio Recorder Controller-->
         <scene sceneID="5">
             <objects>
@@ -37,14 +85,34 @@
                     </connections>
                 </viewController>
             </objects>
+            <point key="canvasLocation" x="478" y="-164"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Esn-uA-X5P">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4GK-nl-LKd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="DE2-BD-dli" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="b0q-YV-2bN">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="rwv-jD-dDJ" kind="relationship" relationship="rootViewController" id="swt-W5-zVj"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-481" y="-165"/>
         </scene>
     </scenes>
     <classes>
         <class className="AudioRecorderController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AudioRecorderController.h"/>
             <relationships>
+                <relationship kind="action" name="record_button_pressed:"/>
                 <relationship kind="outlet" name="recordButton" candidateClass="UIButton"/>
             </relationships>
+        </class>
+        <class className="UserSelectController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSelectController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
