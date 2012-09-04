@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  AudioRecorderController.h
 //  engzo
 //
 //  Created by Capricorn on 12-9-3.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface AudioRecorderController : UIViewController
 
 @end

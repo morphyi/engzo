@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34F0A17715F4F24A00D36363 /* AudioRecorderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A17615F4F24A00D36363 /* AudioRecorderController.m */; };
+		34F0A17915F4F39500D36363 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17815F4F39500D36363 /* AVFoundation.framework */; };
+		34F0A17B15F4F3B000D36363 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17A15F4F3B000D36363 /* CoreAudio.framework */; };
 		34F64D4815F4ED3400A9F8CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4715F4ED3400A9F8CE /* UIKit.framework */; };
 		34F64D4A15F4ED3400A9F8CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4915F4ED3400A9F8CE /* Foundation.framework */; };
 		34F64D4C15F4ED3400A9F8CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4B15F4ED3400A9F8CE /* CoreGraphics.framework */; };
@@ -14,10 +17,13 @@
 		34F64D5415F4ED3400A9F8CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F64D5315F4ED3400A9F8CE /* main.m */; };
 		34F64D5815F4ED3400A9F8CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F64D5715F4ED3400A9F8CE /* AppDelegate.m */; };
 		34F64D5B15F4ED3400A9F8CE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34F64D5915F4ED3400A9F8CE /* MainStoryboard.storyboard */; };
-		34F64D5E15F4ED3400A9F8CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F64D5D15F4ED3400A9F8CE /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34F0A17515F4F24A00D36363 /* AudioRecorderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecorderController.h; sourceTree = "<group>"; };
+		34F0A17615F4F24A00D36363 /* AudioRecorderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderController.m; sourceTree = "<group>"; };
+		34F0A17815F4F39500D36363 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		34F0A17A15F4F3B000D36363 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		34F64D4315F4ED3400A9F8CE /* engzo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = engzo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34F64D4715F4ED3400A9F8CE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		34F64D4915F4ED3400A9F8CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -29,8 +35,6 @@
 		34F64D5615F4ED3400A9F8CE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		34F64D5715F4ED3400A9F8CE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		34F64D5A15F4ED3400A9F8CE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		34F64D5C15F4ED3400A9F8CE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		34F64D5D15F4ED3400A9F8CE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +42,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34F0A17B15F4F3B000D36363 /* CoreAudio.framework in Frameworks */,
+				34F0A17915F4F39500D36363 /* AVFoundation.framework in Frameworks */,
 				34F64D4815F4ED3400A9F8CE /* UIKit.framework in Frameworks */,
 				34F64D4A15F4ED3400A9F8CE /* Foundation.framework in Frameworks */,
 				34F64D4C15F4ED3400A9F8CE /* CoreGraphics.framework in Frameworks */,
@@ -67,6 +73,8 @@
 		34F64D4615F4ED3400A9F8CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34F0A17A15F4F3B000D36363 /* CoreAudio.framework */,
+				34F0A17815F4F39500D36363 /* AVFoundation.framework */,
 				34F64D4715F4ED3400A9F8CE /* UIKit.framework */,
 				34F64D4915F4ED3400A9F8CE /* Foundation.framework */,
 				34F64D4B15F4ED3400A9F8CE /* CoreGraphics.framework */,
@@ -80,9 +88,9 @@
 				34F64D5615F4ED3400A9F8CE /* AppDelegate.h */,
 				34F64D5715F4ED3400A9F8CE /* AppDelegate.m */,
 				34F64D5915F4ED3400A9F8CE /* MainStoryboard.storyboard */,
-				34F64D5C15F4ED3400A9F8CE /* ViewController.h */,
-				34F64D5D15F4ED3400A9F8CE /* ViewController.m */,
 				34F64D4E15F4ED3400A9F8CE /* Supporting Files */,
+				34F0A17515F4F24A00D36363 /* AudioRecorderController.h */,
+				34F0A17615F4F24A00D36363 /* AudioRecorderController.m */,
 			);
 			path = engzo;
 			sourceTree = "<group>";
@@ -163,7 +171,7 @@
 			files = (
 				34F64D5415F4ED3400A9F8CE /* main.m in Sources */,
 				34F64D5815F4ED3400A9F8CE /* AppDelegate.m in Sources */,
-				34F64D5E15F4ED3400A9F8CE /* ViewController.m in Sources */,
+				34F0A17715F4F24A00D36363 /* AudioRecorderController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +252,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engzo/engzo-Prefix.pch";
 				INFOPLIST_FILE = "engzo/engzo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -255,6 +264,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engzo/engzo-Prefix.pch";
 				INFOPLIST_FILE = "engzo/engzo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -279,6 +289,7 @@
 				34F64D6315F4ED3400A9F8CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
