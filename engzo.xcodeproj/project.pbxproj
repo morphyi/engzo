@@ -11,7 +11,7 @@
 		34F0A17915F4F39500D36363 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17815F4F39500D36363 /* AVFoundation.framework */; };
 		34F0A17B15F4F3B000D36363 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17A15F4F3B000D36363 /* CoreAudio.framework */; };
 		34F0A19115F5B0F100D36363 /* UserSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A19015F5B0F100D36363 /* UserSelectController.m */; };
-		34F0A19515F5B31F00D36363 /* users.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34F0A19415F5B31F00D36363 /* users.plist */; };
+		34F0A19F15F5C74300D36363 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A19E15F5C74300D36363 /* User.m */; };
 		34F64D4815F4ED3400A9F8CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4715F4ED3400A9F8CE /* UIKit.framework */; };
 		34F64D4A15F4ED3400A9F8CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4915F4ED3400A9F8CE /* Foundation.framework */; };
 		34F64D4C15F4ED3400A9F8CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4B15F4ED3400A9F8CE /* CoreGraphics.framework */; };
@@ -28,7 +28,8 @@
 		34F0A17A15F4F3B000D36363 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		34F0A18F15F5B0F100D36363 /* UserSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectController.h; sourceTree = "<group>"; };
 		34F0A19015F5B0F100D36363 /* UserSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectController.m; sourceTree = "<group>"; };
-		34F0A19415F5B31F00D36363 /* users.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = users.plist; sourceTree = "<group>"; };
+		34F0A19D15F5C74300D36363 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		34F0A19E15F5C74300D36363 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		34F64D4315F4ED3400A9F8CE /* engzo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = engzo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34F64D4715F4ED3400A9F8CE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		34F64D4915F4ED3400A9F8CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,14 +59,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		34F0A19315F5B2D100D36363 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				34F0A19415F5B31F00D36363 /* users.plist */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		34F64D3815F4ED3400A9F8CE = {
 			isa = PBXGroup;
 			children = (
@@ -98,7 +91,6 @@
 		34F64D4D15F4ED3400A9F8CE /* engzo */ = {
 			isa = PBXGroup;
 			children = (
-				34F0A19315F5B2D100D36363 /* Resources */,
 				34F64D5615F4ED3400A9F8CE /* AppDelegate.h */,
 				34F64D5715F4ED3400A9F8CE /* AppDelegate.m */,
 				34F64D5915F4ED3400A9F8CE /* MainStoryboard.storyboard */,
@@ -107,6 +99,8 @@
 				34F0A17615F4F24A00D36363 /* AudioRecorderController.m */,
 				34F0A18F15F5B0F100D36363 /* UserSelectController.h */,
 				34F0A19015F5B0F100D36363 /* UserSelectController.m */,
+				34F0A19D15F5C74300D36363 /* User.h */,
+				34F0A19E15F5C74300D36363 /* User.m */,
 			);
 			path = engzo;
 			sourceTree = "<group>";
@@ -175,7 +169,6 @@
 			files = (
 				34F64D5215F4ED3400A9F8CE /* InfoPlist.strings in Resources */,
 				34F64D5B15F4ED3400A9F8CE /* MainStoryboard.storyboard in Resources */,
-				34F0A19515F5B31F00D36363 /* users.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +183,7 @@
 				34F64D5815F4ED3400A9F8CE /* AppDelegate.m in Sources */,
 				34F0A17715F4F24A00D36363 /* AudioRecorderController.m in Sources */,
 				34F0A19115F5B0F100D36363 /* UserSelectController.m in Sources */,
+				34F0A19F15F5C74300D36363 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

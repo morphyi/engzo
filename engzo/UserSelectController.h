@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserSelectController : UIViewController
+@interface UserSelectController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
