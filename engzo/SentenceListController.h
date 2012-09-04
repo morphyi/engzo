@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SentenceListController : UITableViewController
-
+@property (copy, nonatomic) NSString *userName;
 @end

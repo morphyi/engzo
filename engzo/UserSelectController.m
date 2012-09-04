@@ -7,7 +7,6 @@
 //
 
 #import "UserSelectController.h"
-#import "User.h"
 
 static NSString *kArchiveKey = @"archive";
 
@@ -63,8 +62,7 @@ static NSString *kArchiveKey = @"archive";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"user cell"];
-    User *user = [self.userList objectAtIndex:indexPath.row];
-    cell.textLabel.text = user.userName;
+    cell.textLabel.text = [self.userList objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -80,6 +78,8 @@ static NSString *kArchiveKey = @"archive";
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+
+#pragma mark - Archive related
 
 - (void)archiveListToFile:(NSString *)path {
     NSMutableData *data = [[NSMutableData alloc] init];
@@ -107,6 +107,8 @@ static NSString *kArchiveKey = @"archive";
     return path;
 }
 
+#pragma mark -
+
 - (BOOL)textFieldShouldReturn:(UITextField*)aTextField
 {
     NSLog(@"done:%d", aTextField.hasText);
@@ -117,13 +119,16 @@ static NSString *kArchiveKey = @"archive";
         self.userList = [[NSMutableArray alloc] init];
     }
     
-    User *user = [[User alloc] init];
-    user.userName = aTextField.text;
-    NSLog(@"userName:%@", user.userName);
-    [self.userList addObject:user];
+    [self.userList addObject:aTextField.text];
     [self.tableView reloadData];
     
     return YES;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+    NSString *userName = [self.userList objectAtIndex:path.row];
+    [segue.destinationViewController performSelector:@selector(setUserName:) withObject:userName];
 }
 
 - (void)didEnterBackground {
