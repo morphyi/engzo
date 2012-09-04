@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AudioRecorderController : UIViewController
-
+@property (copy, nonatomic) NSString *sentence;
 @end

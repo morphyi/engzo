@@ -13,6 +13,7 @@
 		34F0A19115F5B0F100D36363 /* UserSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A19015F5B0F100D36363 /* UserSelectController.m */; };
 		34F0A19F15F5C74300D36363 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A19E15F5C74300D36363 /* User.m */; };
 		34F0A1AE15F5FC6300D36363 /* SentenceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A1AD15F5FC6300D36363 /* SentenceListController.m */; };
+		34F0A1B715F600D800D36363 /* sentences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34F0A1B615F600D800D36363 /* sentences.plist */; };
 		34F64D4815F4ED3400A9F8CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4715F4ED3400A9F8CE /* UIKit.framework */; };
 		34F64D4A15F4ED3400A9F8CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4915F4ED3400A9F8CE /* Foundation.framework */; };
 		34F64D4C15F4ED3400A9F8CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4B15F4ED3400A9F8CE /* CoreGraphics.framework */; };
@@ -33,6 +34,7 @@
 		34F0A19E15F5C74300D36363 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		34F0A1AC15F5FC6300D36363 /* SentenceListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentenceListController.h; sourceTree = "<group>"; };
 		34F0A1AD15F5FC6300D36363 /* SentenceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentenceListController.m; sourceTree = "<group>"; };
+		34F0A1B615F600D800D36363 /* sentences.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sentences.plist; sourceTree = "<group>"; };
 		34F64D4315F4ED3400A9F8CE /* engzo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = engzo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34F64D4715F4ED3400A9F8CE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		34F64D4915F4ED3400A9F8CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -62,9 +64,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34F0A1B415F6004500D36363 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				34F0A1B615F600D800D36363 /* sentences.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		34F64D3815F4ED3400A9F8CE = {
 			isa = PBXGroup;
 			children = (
+				34F0A1B415F6004500D36363 /* Resources */,
 				34F64D4D15F4ED3400A9F8CE /* engzo */,
 				34F64D4615F4ED3400A9F8CE /* Frameworks */,
 				34F64D4415F4ED3400A9F8CE /* Products */,
@@ -174,6 +185,7 @@
 			files = (
 				34F64D5215F4ED3400A9F8CE /* InfoPlist.strings in Resources */,
 				34F64D5B15F4ED3400A9F8CE /* MainStoryboard.storyboard in Resources */,
+				34F0A1B715F600D800D36363 /* sentences.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

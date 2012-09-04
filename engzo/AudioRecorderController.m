@@ -12,6 +12,7 @@
 
 @interface AudioRecorderController ()
 
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (strong, nonatomic) AVAudioRecorder *recorder;
 @property (assign, nonatomic) BOOL recording;
@@ -25,9 +26,11 @@
 @end
 
 @implementation AudioRecorderController
+@synthesize textView;
 @synthesize recordButton;
 @synthesize recorder;
 @synthesize recording;
+@synthesize sentence;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,11 +54,14 @@
 	[audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error: &error];
 	//Activate the session
 	[audioSession setActive:YES error: &error];
+    
+    self.textView.text = sentence;
 }
 
 - (void)viewDidUnload
 {
     [self setRecordButton:nil];
+    [self setTextView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
