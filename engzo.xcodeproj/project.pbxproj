@@ -10,6 +10,9 @@
 		34F0A17715F4F24A00D36363 /* AudioRecorderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A17615F4F24A00D36363 /* AudioRecorderController.m */; };
 		34F0A17915F4F39500D36363 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17815F4F39500D36363 /* AVFoundation.framework */; };
 		34F0A17B15F4F3B000D36363 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17A15F4F3B000D36363 /* CoreAudio.framework */; };
+		34F0A19115F5B0F100D36363 /* UserSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A19015F5B0F100D36363 /* UserSelectController.m */; };
+		34F0A19F15F5C74300D36363 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A19E15F5C74300D36363 /* User.m */; };
+		34F0A1AE15F5FC6300D36363 /* SentenceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A1AD15F5FC6300D36363 /* SentenceListController.m */; };
 		34F64D4815F4ED3400A9F8CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4715F4ED3400A9F8CE /* UIKit.framework */; };
 		34F64D4A15F4ED3400A9F8CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4915F4ED3400A9F8CE /* Foundation.framework */; };
 		34F64D4C15F4ED3400A9F8CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4B15F4ED3400A9F8CE /* CoreGraphics.framework */; };
@@ -24,6 +27,12 @@
 		34F0A17615F4F24A00D36363 /* AudioRecorderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderController.m; sourceTree = "<group>"; };
 		34F0A17815F4F39500D36363 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		34F0A17A15F4F3B000D36363 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		34F0A18F15F5B0F100D36363 /* UserSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectController.h; sourceTree = "<group>"; };
+		34F0A19015F5B0F100D36363 /* UserSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectController.m; sourceTree = "<group>"; };
+		34F0A19D15F5C74300D36363 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		34F0A19E15F5C74300D36363 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		34F0A1AC15F5FC6300D36363 /* SentenceListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentenceListController.h; sourceTree = "<group>"; };
+		34F0A1AD15F5FC6300D36363 /* SentenceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentenceListController.m; sourceTree = "<group>"; };
 		34F64D4315F4ED3400A9F8CE /* engzo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = engzo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34F64D4715F4ED3400A9F8CE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		34F64D4915F4ED3400A9F8CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -91,6 +100,12 @@
 				34F64D4E15F4ED3400A9F8CE /* Supporting Files */,
 				34F0A17515F4F24A00D36363 /* AudioRecorderController.h */,
 				34F0A17615F4F24A00D36363 /* AudioRecorderController.m */,
+				34F0A18F15F5B0F100D36363 /* UserSelectController.h */,
+				34F0A19015F5B0F100D36363 /* UserSelectController.m */,
+				34F0A19D15F5C74300D36363 /* User.h */,
+				34F0A19E15F5C74300D36363 /* User.m */,
+				34F0A1AC15F5FC6300D36363 /* SentenceListController.h */,
+				34F0A1AD15F5FC6300D36363 /* SentenceListController.m */,
 			);
 			path = engzo;
 			sourceTree = "<group>";
@@ -172,6 +187,9 @@
 				34F64D5415F4ED3400A9F8CE /* main.m in Sources */,
 				34F64D5815F4ED3400A9F8CE /* AppDelegate.m in Sources */,
 				34F0A17715F4F24A00D36363 /* AudioRecorderController.m in Sources */,
+				34F0A19115F5B0F100D36363 /* UserSelectController.m in Sources */,
+				34F0A19F15F5C74300D36363 /* User.m in Sources */,
+				34F0A1AE15F5FC6300D36363 /* SentenceListController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
