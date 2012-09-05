@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 
+// Import the base URL defined in the app delegate
+extern NSURL *gBaseURL;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

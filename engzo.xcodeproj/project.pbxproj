@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		34C2F6F715F726D200324C09 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C2F6F615F726D200324C09 /* InfoPlist.strings */; };
+		34C2F6F815F727EE00324C09 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C2F6FA15F727EE00324C09 /* InfoPlist.strings */; };
 		34F0A17915F4F39500D36363 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17815F4F39500D36363 /* AVFoundation.framework */; };
 		34F0A17B15F4F3B000D36363 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17A15F4F3B000D36363 /* CoreAudio.framework */; };
 		34F0A20415F7053A00D36363 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A1F115F7053A00D36363 /* AppDelegate.m */; };
@@ -26,7 +26,8 @@
 
 /* Begin PBXFileReference section */
 		2C6AF3FDA3FE428BA2087DD0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		34C2F6F615F726D200324C09 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = Resources/InfoPlist.strings; sourceTree = "<group>"; };
+		34C2F6F915F727EE00324C09 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		34C2F6FB15F727F500324C09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		34F0A17815F4F39500D36363 /* AVFoundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		34F0A17A15F4F3B000D36363 /* CoreAudio.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		34F0A1F015F7053A00D36363 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -74,7 +75,7 @@
 				34F0A24015F722B100D36363 /* MainStoryboard.storyboard */,
 				34F0A23C15F720EE00D36363 /* engzo-Info.plist */,
 				34F0A21A15F7087F00D36363 /* sentences.plist */,
-				34C2F6F615F726D200324C09 /* InfoPlist.strings */,
+				34C2F6FA15F727EE00324C09 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -225,7 +226,7 @@
 			files = (
 				34F0A21E15F7088000D36363 /* sentences.plist in Resources */,
 				34F0A24115F722B100D36363 /* MainStoryboard.storyboard in Resources */,
-				34C2F6F715F726D200324C09 /* InfoPlist.strings in Resources */,
+				34C2F6F815F727EE00324C09 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +264,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		34C2F6FA15F727EE00324C09 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34C2F6F915F727EE00324C09 /* zh-Hans */,
+				34C2F6FB15F727F500324C09 /* en */,
+			);
+			name = InfoPlist.strings;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		34F64D5F15F4ED3400A9F8CE /* Debug */ = {

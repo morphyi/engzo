@@ -9,12 +9,14 @@
 #import "AppDelegate.h"
 
 static NSString *kArchiveKey = @"archive";
+NSURL *gBaseURL = nil;
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    gBaseURL = [[NSURL alloc] initWithString:@"http://www.liulishuo.com/"];
+    
     return YES;
 }
 							

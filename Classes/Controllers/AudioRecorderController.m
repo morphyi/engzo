@@ -10,8 +10,12 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreAudio/CoreAudioTypes.h>
 #import "AppDelegate.h"
+#import <RestKit/RestKit.h>
+#import <RestKit/CoreData.h>
 
-@interface AudioRecorderController ()
+@interface AudioRecorderController () {
+    RKClient *_client;
+}
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
@@ -24,6 +28,7 @@
 - (void)startRecord;
 - (NSURL *)getRecordFilePath:(NSString *)userName forSentenceIndex:(NSUInteger)index;
 - (void)playRecord;
+- (void)uploadRecord;
 
 @end
 
@@ -180,6 +185,12 @@
             NSLog(@"%@", error);
         }
     };
+}
+
+- (void)uploadRecord {
+    if (!_client) {
+        _client = [[RKClient alloc] initWithBaseURL:gBaseURL];
+    }
 }
 
 @end
