@@ -338,11 +338,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 47E4B355EDD242B8AF382E24 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engzo-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/engzo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "AEE6816E-0278-4077-81FB-3A4E1ACD1AF0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AEE6816E-0278-4077-81FB-3A4E1ACD1AF0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -351,11 +355,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 47E4B355EDD242B8AF382E24 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engzo-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/engzo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "AEE6816E-0278-4077-81FB-3A4E1ACD1AF0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
