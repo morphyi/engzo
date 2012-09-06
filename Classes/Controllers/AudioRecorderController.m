@@ -10,13 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreAudio/CoreAudioTypes.h>
 #import "AppDelegate.h"
-#import <RestKit/RKObjectManager.h>
 #import "TrainingAudio.h"
 
-@interface AudioRecorderController () {
-    RKClient *_client;
-}
-
+@interface AudioRecorderController ()
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
@@ -190,10 +186,6 @@
 }
 
 - (void)uploadRecord {
-    if (!_client) {
-        _client = [[RKClient alloc] initWithBaseURL:gBaseURL];
-    }
-
     TrainingAudio *audio = [[TrainingAudio alloc] init];
     audio.email = self.user.userName;
     audio.text = [self.sentenceList objectAtIndex:self.sentenceIndex];
@@ -207,7 +199,7 @@
     attachment.MIMEType = @"applicaton/octet-stream";
     attachment.fileName = @"test.alac";
     
-    [_client post:@"/training_audios.json" params:params delegate:self];
+    [[RKClient sharedClient] post:@"/training_audios.json" params:params delegate:self];
 }
 
 #pragma mark - RKRequest Delegate
