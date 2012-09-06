@@ -22,6 +22,7 @@ NSURL *gBaseURL = nil;
 
 @implementation AppDelegate
 @synthesize client;
+@synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
