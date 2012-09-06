@@ -8,11 +8,13 @@
 
 #import "User.h"
 
-static NSString *kListKey = @"list";
+static NSString *kFinishedKey = @"finished";
+static NSString *kUploadedKey = @"uploaded";
 static NSString *kNameKey = @"name";
 
 @interface User () {
     NSMutableArray *_finishedList;
+    NSMutableArray *_uploadedList;
 }
 
 @end
@@ -46,19 +48,33 @@ static NSString *kNameKey = @"name";
     [_finishedList addObject:[[NSNumber alloc] initWithUnsignedInteger:index]];
 }
 
+- (void)addUploadeddItem:(NSUInteger)index {
+    if (!_uploadedList) {
+        _uploadedList = [[NSMutableArray alloc] init];
+    }
+    
+    [_uploadedList addObject:[[NSNumber alloc] initWithUnsignedInteger:index]];
+}
+
 - (NSArray *)getFinishedList {
     return [[NSArray alloc] initWithArray:_finishedList];
 }
 
+- (NSArray *)getUploadedList {
+    return [[NSArray alloc] initWithArray:_uploadedList];
+}
+
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:_finishedList forKey:kListKey];
+    [aCoder encodeObject:_finishedList forKey:kFinishedKey];
+    [aCoder encodeObject:_uploadedList forKey:kUploadedKey];
     [aCoder encodeObject:self.userName forKey:kNameKey];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     // Init first.
     if(self = [self init]) {
-        _finishedList = [aDecoder decodeObjectForKey:kListKey];
+        _finishedList = [aDecoder decodeObjectForKey:kFinishedKey];
+        _uploadedList = [aDecoder decodeObjectForKey:kUploadedKey];
         self.userName = [aDecoder decodeObjectForKey:kNameKey];
     }
     

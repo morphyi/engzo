@@ -13,4 +13,6 @@ UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
++ (NSString *)getUserListArchivePath;
++ (NSMutableArray *)getUserListFromFile:(NSString *)path;
 @end

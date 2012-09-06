@@ -15,8 +15,6 @@ static NSString *kArchiveKey = @"archive";
 @property (strong, nonatomic) NSMutableArray *userList;
 
 - (void)archiveListToFile:(NSString*)path;
-- (void)getListFromFile:(NSString *)path;
-- (NSString *)getArchivePath;
 - (void)didEnterBackground;
 @end
 
@@ -29,19 +27,19 @@ static NSString *kArchiveKey = @"archive";
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground) name:@"didEnterBackground" object:nil];
-    [self getListFromFile:[self getArchivePath]];
+    self.userList = [UserSelectController getUserListFromFile:[UserSelectController getUserListArchivePath]];
 }
 
 - (void)viewDidUnload
 {
-    [self archiveListToFile:[self getArchivePath]];
+    [self archiveListToFile:[UserSelectController getUserListArchivePath]];
     self.tableView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
 
 - (void)dealloc {
-    [self archiveListToFile:[self getArchivePath]];
+    [self archiveListToFile:[UserSelectController getUserListArchivePath]];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didEnterBackground" object:nil];
 }
 
@@ -89,17 +87,19 @@ static NSString *kArchiveKey = @"archive";
     [data writeToFile:path atomically: YES];
 }
 
-- (void)getListFromFile:(NSString *)path {
++ (NSMutableArray *)getUserListFromFile:(NSString *)path {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     if ([fileManager fileExistsAtPath: path]){
         NSData *data = [[NSData alloc] initWithContentsOfFile: path];
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
-        self.userList = [unarchiver decodeObjectForKey:kArchiveKey];
+        return [unarchiver decodeObjectForKey:kArchiveKey];
     }
+    
+    return nil;
 }
 
-- (NSString *)getArchivePath {
++ (NSString *)getUserListArchivePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"userList.archive"];
@@ -132,7 +132,7 @@ static NSString *kArchiveKey = @"archive";
 }
 
 - (void)didEnterBackground {
-    [self archiveListToFile:[self getArchivePath]];
+    [self archiveListToFile:[UserSelectController getUserListArchivePath]];
 }
 
 @end
