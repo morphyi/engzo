@@ -10,12 +10,14 @@
 #import <RestKit/RKReachabilityObserver.h>
 #import "UserSelectController.h"
 #import "TrainingAudio.h"
+#import <Crashlytics/Crashlytics.h>
 
 static NSString *kArchiveKey = @"archive";
 NSURL *gBaseURL = nil;
 
 @interface AppDelegate ()
-- (RKRequest *)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text;
+- (RKRequest *)uploadRecord:(NSData *)audioData withFileName:(
+                                                              NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text;
 - (void)uploadAllRecords;
 - (void)uploadOnlyWhenWifiAvailiable:(RKReachabilityObserver *)observer;
 @end
@@ -35,6 +37,7 @@ NSURL *gBaseURL = nil;
                                                  name:RKReachabilityDidChangeNotification
                                                object:self.client.reachabilityObserver];
     
+    [Crashlytics startWithAPIKey:@"84190f5c58f93691273aef4ecdb1175a6a6fabf4"];
     
     return YES;
 }

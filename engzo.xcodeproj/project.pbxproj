@@ -22,6 +22,7 @@
 		34F64D4815F4ED3400A9F8CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4715F4ED3400A9F8CE /* UIKit.framework */; };
 		34F64D4A15F4ED3400A9F8CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4915F4ED3400A9F8CE /* Foundation.framework */; };
 		34F64D4C15F4ED3400A9F8CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4B15F4ED3400A9F8CE /* CoreGraphics.framework */; };
+		6051BB4A15F8D243008CB33C /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6051BB4915F8D243008CB33C /* Crashlytics.framework */; };
 		F9CCB1F93FC540FD95A273E6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AF3FDA3FE428BA2087DD0 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		34F64D4915F4ED3400A9F8CE /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		34F64D4B15F4ED3400A9F8CE /* CoreGraphics.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		47E4B355EDD242B8AF382E24 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		6051BB4915F8D243008CB33C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				34F64D4A15F4ED3400A9F8CE /* Foundation.framework in Frameworks */,
 				34F64D4C15F4ED3400A9F8CE /* CoreGraphics.framework in Frameworks */,
 				F9CCB1F93FC540FD95A273E6 /* libPods.a in Frameworks */,
+				6051BB4A15F8D243008CB33C /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +169,7 @@
 		34F64D4615F4ED3400A9F8CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6051BB4915F8D243008CB33C /* Crashlytics.framework */,
 				34F0A17A15F4F3B000D36363 /* CoreAudio.framework */,
 				34F0A17815F4F39500D36363 /* AVFoundation.framework */,
 				34F64D4715F4ED3400A9F8CE /* UIKit.framework */,
@@ -187,6 +191,7 @@
 				34F64D4015F4ED3400A9F8CE /* Frameworks */,
 				34F64D4115F4ED3400A9F8CE /* Resources */,
 				7DAB79ADB33F448E931ACD73 /* Copy Pods Resources */,
+				6051BB4715F8D1C3008CB33C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -238,6 +243,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6051BB4715F8D1C3008CB33C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 84190f5c58f93691273aef4ecdb1175a6a6fabf4";
+		};
 		7DAB79ADB33F448E931ACD73 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -340,6 +358,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engzo-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/engzo-Info.plist";
@@ -357,6 +379,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engzo-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/engzo-Info.plist";
