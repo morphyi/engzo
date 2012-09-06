@@ -10,8 +10,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreAudio/CoreAudioTypes.h>
 #import "AppDelegate.h"
-#import <RestKit/RestKit.h>
-#import <RestKit/CoreData.h>
+#import <RestKit/RKObjectManager.h>
+#import "TrainingAudio.h"
 
 @interface AudioRecorderController () {
     RKClient *_client;
@@ -78,11 +78,10 @@
     // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)dealloc
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    [RKClient setSharedClient:nil];
 }
-
 
 - (NSURL *)getRecordFilePath:(NSString *)userName forSentenceIndex:(NSUInteger)index {
     return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%@%u.%@", userName, index, @"alac"]]];
@@ -126,6 +125,8 @@
     [recordSetting setValue:[NSNumber numberWithFloat:44110] forKey:AVSampleRateKey];
     [recordSetting setValue:[NSNumber numberWithInt:2] forKey:AVNumberOfChannelsKey];
     
+    NSLog(@"bit rate:%@", [recordSetting valueForKey:AVEncoderBitRateKey]);
+    
     //Now that we have our settings we are going to instanciate an instance of our recorder instance.
     //Generate a temp file for use by the recording.
     //This sample was one I found online and seems to be a good choice for making a tmp file that
@@ -168,6 +169,7 @@
 	[self.player prepareToPlay];
 	[self.player play];
     
+    [self uploadRecord];
 }
 
 - (void)checkFile:(NSURL *)filePath {
@@ -191,6 +193,43 @@
     if (!_client) {
         _client = [[RKClient alloc] initWithBaseURL:gBaseURL];
     }
+
+    TrainingAudio *audio = [[TrainingAudio alloc] init];
+    audio.email = self.user.userName;
+    audio.text = [self.sentenceList objectAtIndex:self.sentenceIndex];
+    audio.path = [self getRecordFilePath:self.user.userName forSentenceIndex:self.sentenceIndex];
+    
+    RKParams *params = [RKParams params];
+    [params setData:[@"capricorn0113@gmail.com" dataUsingEncoding:NSUTF8StringEncoding] forParam:@"training_audio[email]"];
+    [params setData:[@"Thank you." dataUsingEncoding:NSUTF8StringEncoding] forParam:@"training_audio[text]"];
+    
+    RKParamsAttachment *attachment = [params setData:[audio audioData] forParam:@"training_audio[audio]"];
+    attachment.MIMEType = @"applicaton/octet-stream";
+    attachment.fileName = @"test.alac";
+    
+    [_client post:@"/training_audios.json" params:params delegate:self];
 }
+
+#pragma mark - RKRequest Delegate
+- (void)requestDidStartLoad:(RKRequest *)request
+{
+    NSLog(@"requestDidStartLoad");
+}
+
+- (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
+{
+    NSLog(@"didSendBodyData");
+}
+
+- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
+{
+    NSLog(@"didLoadResponse:%@%@",[response isOK]?@"success":@"fail", [response bodyAsString]);
+}
+
+- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"didFailLoadWithError:%@",error);
+}
+
 
 @end

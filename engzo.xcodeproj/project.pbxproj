@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34C2F6F815F727EE00324C09 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C2F6FA15F727EE00324C09 /* InfoPlist.strings */; };
+		34C2F72D15F7546200324C09 /* TrainingAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2F72C15F7546200324C09 /* TrainingAudio.m */; };
 		34F0A17915F4F39500D36363 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17815F4F39500D36363 /* AVFoundation.framework */; };
 		34F0A17B15F4F3B000D36363 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17A15F4F3B000D36363 /* CoreAudio.framework */; };
 		34F0A20415F7053A00D36363 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F0A1F115F7053A00D36363 /* AppDelegate.m */; };
@@ -28,6 +29,8 @@
 		2C6AF3FDA3FE428BA2087DD0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		34C2F6F915F727EE00324C09 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		34C2F6FB15F727F500324C09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		34C2F72B15F7546200324C09 /* TrainingAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingAudio.h; sourceTree = "<group>"; };
+		34C2F72C15F7546200324C09 /* TrainingAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingAudio.m; sourceTree = "<group>"; };
 		34F0A17815F4F39500D36363 /* AVFoundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		34F0A17A15F4F3B000D36363 /* CoreAudio.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		34F0A1F015F7053A00D36363 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -125,6 +128,8 @@
 			children = (
 				34F0A20215F7053A00D36363 /* User.h */,
 				34F0A20315F7053A00D36363 /* User.m */,
+				34C2F72B15F7546200324C09 /* TrainingAudio.h */,
+				34C2F72C15F7546200324C09 /* TrainingAudio.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				34F0A20715F7053A00D36363 /* UserSelectController.m in Sources */,
 				34F0A20C15F7053A00D36363 /* User.m in Sources */,
 				34F0A21315F7073200D36363 /* main.m in Sources */,
+				34C2F72D15F7546200324C09 /* TrainingAudio.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
