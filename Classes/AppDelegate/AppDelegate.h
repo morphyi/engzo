@@ -25,4 +25,5 @@ extern NSURL *gBaseURL;
 - (User *)getUserFromFile:(NSString *)path;
 - (void)archiveUser:(User *)aUser ToFile:(NSString*)path;
 
+- (void)uploadOnlyWhenWifiAvailiable:(RKReachabilityObserver *)observer;
 @end

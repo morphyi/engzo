@@ -98,6 +98,8 @@
         [self.user addFinishedItem:self.sentenceIndex];
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate archiveUser:self.user ToFile:[appDelegate getArchivePath:self.user.userName]];
+        
+        [appDelegate uploadOnlyWhenWifiAvailiable:[RKClient sharedClient].reachabilityObserver];
     }
 }
 
@@ -165,7 +167,7 @@
 	[self.player prepareToPlay];
 	[self.player play];
     
-    [self uploadRecord];
+    //[self uploadRecord];
 }
 
 - (void)checkFile:(NSURL *)filePath {

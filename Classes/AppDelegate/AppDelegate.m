@@ -17,7 +17,7 @@ NSURL *gBaseURL = nil;
 
 @interface AppDelegate ()
 - (RKRequest *)uploadRecord:(NSData *)audioData withFileName:(
-                                                              NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text;
+                                                              NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andRequestId:(id)id;
 - (void)uploadAllRecords;
 - (void)uploadOnlyWhenWifiAvailiable:(RKReachabilityObserver *)observer;
 @end
@@ -63,6 +63,7 @@ NSURL *gBaseURL = nil;
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    NSLog(@"applicationDidBecomeActive");
     [self uploadOnlyWhenWifiAvailiable:self.client.reachabilityObserver];
 }
 
@@ -106,7 +107,7 @@ NSURL *gBaseURL = nil;
     return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%@%u.%@", userName, index, @"alac"]]];
 }
 
-- (RKRequest *)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text {
+- (RKRequest *)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andRequestId:(id)id {
     RKParams *params = [RKParams params];
     [params setData:[email dataUsingEncoding:NSUTF8StringEncoding] forParam:@"training_audio[email]"];
     [params setData:[text dataUsingEncoding:NSUTF8StringEncoding] forParam:@"training_audio[text]"];
@@ -117,6 +118,7 @@ NSURL *gBaseURL = nil;
     
     RKRequest *request = [[RKClient sharedClient] post:@"/training_audios.json" params:params delegate:self];
     request.backgroundPolicy = RKRequestBackgroundPolicyContinue; // Continue the request in the background
+    request.userData = id;
     
     return request;
 }
@@ -131,17 +133,14 @@ NSURL *gBaseURL = nil;
         User *user = [self getUserFromFile:[self getArchivePath:userName]];
         NSLog(@"user:%@", user.userName);
         for (NSNumber *finishedIndex in user.finishedList) {
-            NSLog(@"finishedIndex:%@", finishedIndex);
             if (![user.uploadedList containsObject:finishedIndex]) {
                 NSLog(@"unuploadedIndex:%@", finishedIndex);
                 TrainingAudio *audio = [[TrainingAudio alloc] init];
                 audio.email = user.userName;
                 audio.text = [sentenceList objectAtIndex:finishedIndex.unsignedIntegerValue];
                 audio.path = [AppDelegate getRecordFilePath:user.userName forSentenceIndex:finishedIndex.unsignedIntegerValue];
-                RKRequest *request = [self uploadRecord:[audio audioData] withFileName:[NSString stringWithFormat: @"%@%@.%@", userName, finishedIndex, @"alac"] andEmail:audio.email andText:audio.text];
-                
                 NSDictionary *requestId = [NSDictionary dictionaryWithKeysAndObjects:@"user", user, @"index", finishedIndex, nil];
-                [request setUserData:requestId];
+                [self uploadRecord:[audio audioData] withFileName:[NSString stringWithFormat: @"%@%@.%@", userName, finishedIndex, @"alac"] andEmail:audio.email andText:audio.text andRequestId:requestId];
             }
         }
     }

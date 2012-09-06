@@ -82,7 +82,7 @@ static NSString *kArchiveKey = @"archive";
     static NSString *CellIdentifier = @"sentence cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    cell.textLabel.text = [self.sentenceList objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%u.%@", indexPath.row + 1, [self.sentenceList objectAtIndex:indexPath.row]];
     cell.accessoryType = [self isFinished:indexPath.row] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
