@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Crashlytics/Crashlytics.h>
 
 static NSString *kArchiveKey = @"archive";
 
@@ -15,6 +16,7 @@ static NSString *kArchiveKey = @"archive";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [Crashlytics startWithAPIKey:@"84190f5c58f93691273aef4ecdb1175a6a6fabf4"];
     return YES;
 }
 							

@@ -21,6 +21,7 @@
 		34F64D5415F4ED3400A9F8CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F64D5315F4ED3400A9F8CE /* main.m */; };
 		34F64D5815F4ED3400A9F8CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F64D5715F4ED3400A9F8CE /* AppDelegate.m */; };
 		34F64D5B15F4ED3400A9F8CE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34F64D5915F4ED3400A9F8CE /* MainStoryboard.storyboard */; };
+		603916EA15F7B8A8002EBAB5 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 603916E915F7B8A8002EBAB5 /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		34F64D5615F4ED3400A9F8CE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		34F64D5715F4ED3400A9F8CE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		34F64D5A15F4ED3400A9F8CE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		603916E915F7B8A8002EBAB5 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				34F64D4815F4ED3400A9F8CE /* UIKit.framework in Frameworks */,
 				34F64D4A15F4ED3400A9F8CE /* Foundation.framework in Frameworks */,
 				34F64D4C15F4ED3400A9F8CE /* CoreGraphics.framework in Frameworks */,
+				603916EA15F7B8A8002EBAB5 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +96,7 @@
 		34F64D4615F4ED3400A9F8CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				603916E915F7B8A8002EBAB5 /* Crashlytics.framework */,
 				34F0A17A15F4F3B000D36363 /* CoreAudio.framework */,
 				34F0A17815F4F39500D36363 /* AVFoundation.framework */,
 				34F64D4715F4ED3400A9F8CE /* UIKit.framework */,
@@ -142,6 +146,7 @@
 				34F64D3F15F4ED3400A9F8CE /* Sources */,
 				34F64D4015F4ED3400A9F8CE /* Frameworks */,
 				34F64D4115F4ED3400A9F8CE /* Resources */,
+				603916E715F7B83B002EBAB5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -190,6 +195,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		603916E715F7B83B002EBAB5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 84190f5c58f93691273aef4ecdb1175a6a6fabf4";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		34F64D3F15F4ED3400A9F8CE /* Sources */ = {
@@ -279,6 +301,10 @@
 		34F64D6215F4ED3400A9F8CE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engzo/engzo-Prefix.pch";
 				INFOPLIST_FILE = "engzo/engzo-Info.plist";
@@ -291,6 +317,10 @@
 		34F64D6315F4ED3400A9F8CE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "engzo/engzo-Prefix.pch";
 				INFOPLIST_FILE = "engzo/engzo-Info.plist";
