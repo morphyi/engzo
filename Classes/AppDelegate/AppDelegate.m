@@ -11,15 +11,20 @@
 #import "UserSelectController.h"
 #import "TrainingAudio.h"
 #import <Crashlytics/Crashlytics.h>
+#import "Flurry.h"
+#import <AFNetworking.h>
+#import <Reachability.h>
+#import <AFHTTPClient.h>
 
 static NSString *kArchiveKey = @"archive";
 NSURL *gBaseURL = nil;
 
 @interface AppDelegate ()
-- (RKRequest *)uploadRecord:(NSData *)audioData withFileName:(
-                                                              NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andRequestId:(id)id;
+- (void)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andRequestId:(id)id;
 - (void)uploadAllRecords;
 - (void)uploadOnlyWhenWifiAvailiable:(RKReachabilityObserver *)observer;
+
+@property Reachability *reach;
 @end
 
 @implementation AppDelegate
@@ -28,14 +33,30 @@ NSURL *gBaseURL = nil;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Flurry startSession:@"C8JJ7M84J3WKBDM53PTN"];
+    
     gBaseURL = [[NSURL alloc] initWithString:@"http://www.liulishuo.com/"];
     self.client = [RKClient clientWithBaseURL:gBaseURL];
     [RKClient setSharedClient:self.client];
     
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(reachabilityChanged:)
+//                                                 name:RKReachabilityDidChangeNotification
+//                                               object:self.client.reachabilityObserver];
+    
+    self.reach = [Reachability reachabilityWithHostname:@"www.liulishuo.com"];
+    
+    // tell the reachability that we DONT want to be reachable on 3G/EDGE/CDMA
+    self.reach.reachableOnWWAN = NO;
+    
+    // here we set up a NSNotification observer. The Reachability that caused the notification
+    // is passed in the object parameter
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
-                                                 name:RKReachabilityDidChangeNotification
-                                               object:self.client.reachabilityObserver];
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
+    
+    [self.reach startNotifier];
     
     [Crashlytics startWithAPIKey:@"84190f5c58f93691273aef4ecdb1175a6a6fabf4"];
     
@@ -107,7 +128,7 @@ NSURL *gBaseURL = nil;
     return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%@%u.%@", userName, index, @"alac"]]];
 }
 
-- (RKRequest *)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andRequestId:(id)id {
+- (void)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andRequestId:(id)id {
     RKParams *params = [RKParams params];
     [params setData:[email dataUsingEncoding:NSUTF8StringEncoding] forParam:@"training_audio[email]"];
     [params setData:[text dataUsingEncoding:NSUTF8StringEncoding] forParam:@"training_audio[text]"];
@@ -119,8 +140,32 @@ NSURL *gBaseURL = nil;
     RKRequest *request = [[RKClient sharedClient] post:@"/training_audios.json" params:params delegate:self];
     request.backgroundPolicy = RKRequestBackgroundPolicyContinue; // Continue the request in the background
     request.userData = id;
-    
-    return request;
+//    AFHTTPClient *afclient= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://www.liulishuo.com"]];
+//    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+//    [parameters setObject:email forKey:@"training_audio[email]"];
+//    [parameters setObject:text forKey:@"training_audio[text]"];
+//    
+//    NSMutableURLRequest *request = [afclient requestWithMethod:@"POST" path:@"/training_audios.json" parameters:nil];
+////    [afclient multipartFormRequestWithMethod:@"POST" path:@"/upload.php" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+////        //[formData appendPartWithFileData:data mimeType:@"image/jpeg" name:@"attachment"];
+////    }];
+//    //AFMultipartFormData *formData = [[AFMultipartFormData alloc] initWithURLRequest:request stringEncoding:NSUTF8StringEncoding];
+//    //
+//    //    if (parameters) {
+//    //        for (AFQueryStringComponent *component in AFQueryStringComponentsFromKeyAndValue(nil, parameters)) {
+//    //            NSData *data = nil;
+//    //            if ([component.value isKindOfClass:[NSData class]]) {
+//    //                data = component.value;
+//    //            } else {
+//    //                data = [[component.value description] dataUsingEncoding:self.stringEncoding];
+//    //            }
+//    //
+//    //            if (data) {
+//    //                [formData appendPartWithFormData:data name:[component.key description]];
+//    //            }
+//    //        }
+//    //    }
+
 }
 
 - (void)uploadAllRecords {
@@ -147,6 +192,15 @@ NSURL *gBaseURL = nil;
 }
 
 - (void)uploadOnlyWhenWifiAvailiable:(RKReachabilityObserver *)observer {
+    if ([self.reach isReachableViaWiFi]) {
+        NSLog(@"wifi available");
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            [self uploadAllRecords];
+        });
+    } else {
+        NSLog(@"no wifi");
+    }
+
     if ([observer isReachabilityDetermined] && [observer isNetworkReachable]) {
         if ([observer isConnectionRequired]) {
             NSLog(@"Connection is available...");
@@ -155,20 +209,21 @@ NSURL *gBaseURL = nil;
         
         if (RKReachabilityReachableViaWiFi == [observer networkStatus]) {
             NSLog(@"Online via WiFi!");
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [self uploadAllRecords];
-            });
+            
         }
     } else {
-        NSLog(@"Network unreachable!");
+        NSLog(@"restkit Network unreachable!");
     }
 
 }
 
 #pragma mark - Reachability Related
 - (void)reachabilityChanged:(NSNotification*)notification {
-    RKReachabilityObserver *observer = (RKReachabilityObserver *)[notification object];    
-    [self uploadOnlyWhenWifiAvailiable:observer];
+    [self uploadOnlyWhenWifiAvailiable:nil];
+//    if ([notification.object isMemberOfClass:[RKReachabilityObserver  class]]) {
+//        RKReachabilityObserver *observer = (RKReachabilityObserver *)[notification object];
+//        [self uploadOnlyWhenWifiAvailiable:observer];
+//    }
 }
 
 #pragma mark - RKRequest Delegate

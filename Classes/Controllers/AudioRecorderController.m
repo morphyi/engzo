@@ -76,6 +76,10 @@
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
         // back button was pressed.  We know this is true because self is no longer
         // in the navigation stack.
+        if([recorder isRecording]) {
+            [recorder stop];
+        }
+        
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate uploadOnlyWhenWifiAvailiable:[RKClient sharedClient].reachabilityObserver];
     }

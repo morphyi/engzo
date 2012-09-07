@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3418614115FA296F0075AD58 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3418614015FA296F0075AD58 /* libFlurry.a */; };
 		34C2F6F815F727EE00324C09 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C2F6FA15F727EE00324C09 /* InfoPlist.strings */; };
 		34C2F72D15F7546200324C09 /* TrainingAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2F72C15F7546200324C09 /* TrainingAudio.m */; };
 		34F0A17915F4F39500D36363 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17815F4F39500D36363 /* AVFoundation.framework */; };
@@ -28,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		2C6AF3FDA3FE428BA2087DD0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3418614015FA296F0075AD58 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
+		3418614615FA2A600075AD58 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		34C2F6F915F727EE00324C09 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		34C2F6FB15F727F500324C09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		34C2F72B15F7546200324C09 /* TrainingAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingAudio.h; sourceTree = "<group>"; };
@@ -69,12 +72,21 @@
 				34F64D4C15F4ED3400A9F8CE /* CoreGraphics.framework in Frameworks */,
 				F9CCB1F93FC540FD95A273E6 /* libPods.a in Frameworks */,
 				6051BB4A15F8D243008CB33C /* Crashlytics.framework in Frameworks */,
+				3418614115FA296F0075AD58 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3418614515FA2A1B0075AD58 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				3418614615FA2A600075AD58 /* Flurry.h */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		34F0A1B415F6004500D36363 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,7 +103,7 @@
 			children = (
 				34F0A1EF15F7053A00D36363 /* AppDelegate */,
 				34F0A1F215F7053A00D36363 /* Controllers */,
-				34F0A1FF15F7053A00D36363 /* Helpers */,
+				3418614515FA2A1B0075AD58 /* Helper */,
 				34F0A20115F7053A00D36363 /* Models */,
 			);
 			path = Classes;
@@ -117,13 +129,6 @@
 				34F0A1F815F7053A00D36363 /* UserSelectController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		34F0A1FF15F7053A00D36363 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		34F0A20115F7053A00D36363 /* Models */ = {
@@ -169,6 +174,7 @@
 		34F64D4615F4ED3400A9F8CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3418614015FA296F0075AD58 /* libFlurry.a */,
 				6051BB4915F8D243008CB33C /* Crashlytics.framework */,
 				34F0A17A15F4F3B000D36363 /* CoreAudio.framework */,
 				34F0A17815F4F39500D36363 /* AVFoundation.framework */,
@@ -366,9 +372,13 @@
 				GCC_PREFIX_HEADER = "engzo-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/engzo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "AEE6816E-0278-4077-81FB-3A4E1ACD1AF0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AEE6816E-0278-4077-81FB-3A4E1ACD1AF0";
+				PROVISIONING_PROFILE = "4850D51E-ACD8-4454-AC72-8C319099DB32";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4850D51E-ACD8-4454-AC72-8C319099DB32";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -387,8 +397,12 @@
 				GCC_PREFIX_HEADER = "engzo-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/engzo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "AEE6816E-0278-4077-81FB-3A4E1ACD1AF0";
+				PROVISIONING_PROFILE = "4850D51E-ACD8-4454-AC72-8C319099DB32";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
