@@ -22,9 +22,7 @@
 @property (strong, nonatomic) AVAudioPlayer * player;
 
 - (void)startRecord;
-- (NSURL *)getRecordFilePath:(NSString *)userName forSentenceIndex:(NSUInteger)index;
 - (void)playRecord;
-- (void)uploadRecord;
 
 @end
 
@@ -74,13 +72,18 @@
     // Release any retained subviews of the main view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate uploadOnlyWhenWifiAvailiable:[RKClient sharedClient].reachabilityObserver];
+    }
+}
+
 - (void)dealloc
 {
     [RKClient setSharedClient:nil];
-}
-
-- (NSURL *)getRecordFilePath:(NSString *)userName forSentenceIndex:(NSUInteger)index {
-    return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%@%u.%@", userName, index, @"alac"]]];
 }
 
 - (IBAction)record_button_pressed:(id)sender {
@@ -98,8 +101,6 @@
         [self.user addFinishedItem:self.sentenceIndex];
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate archiveUser:self.user ToFile:[appDelegate getArchivePath:self.user.userName]];
-        
-        [appDelegate uploadOnlyWhenWifiAvailiable:[RKClient sharedClient].reachabilityObserver];
     }
 }
 
@@ -130,7 +131,7 @@
     //This sample was one I found online and seems to be a good choice for making a tmp file that
     //will not overwrite an existing one.
     //I know this is a mess of collapsed things into 1 call.  I can break it out if need be.
-    NSURL *recordedTmpFile = [self getRecordFilePath:self.user.userName forSentenceIndex:self.sentenceIndex];
+    NSURL *recordedTmpFile = [AppDelegate getRecordFilePath:self.user.userName forSentenceIndex:self.sentenceIndex];
     NSLog(@"Using File called: %@",recordedTmpFile);
     
     [self checkFile:recordedTmpFile];
@@ -158,7 +159,7 @@
     NSLog(@"playRecord");
     NSError *error;
     //Setup the AVAudioPlayer to play the file that we just recorded.
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[self getRecordFilePath:self.user.userName forSentenceIndex:self.sentenceIndex] error:&error];
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[AppDelegate getRecordFilePath:self.user.userName forSentenceIndex:self.sentenceIndex] error:&error];
     
     if (error) {
         NSLog(@"%@", error);
@@ -185,23 +186,6 @@
             NSLog(@"%@", error);
         }
     };
-}
-
-- (void)uploadRecord {
-    TrainingAudio *audio = [[TrainingAudio alloc] init];
-    audio.email = self.user.userName;
-    audio.text = [self.sentenceList objectAtIndex:self.sentenceIndex];
-    audio.path = [self getRecordFilePath:self.user.userName forSentenceIndex:self.sentenceIndex];
-    
-    RKParams *params = [RKParams params];
-    [params setData:[@"capricorn0113@gmail.com" dataUsingEncoding:NSUTF8StringEncoding] forParam:@"training_audio[email]"];
-    [params setData:[@"Thank you." dataUsingEncoding:NSUTF8StringEncoding] forParam:@"training_audio[text]"];
-    
-    RKParamsAttachment *attachment = [params setData:[audio audioData] forParam:@"training_audio[audio]"];
-    attachment.MIMEType = @"applicaton/octet-stream";
-    attachment.fileName = @"test.alac";
-    
-    [[RKClient sharedClient] post:@"/training_audios.json" params:params delegate:self];
 }
 
 #pragma mark - RKRequest Delegate
