@@ -98,9 +98,11 @@
         //Stop the recorder.
 		[recorder stop];
         
-        [self.user addFinishedItem:self.sentenceIndex];
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate archiveUser:self.user ToFile:[appDelegate getArchivePath:self.user.userName]];
+        User *currentUser = [appDelegate getUserFromFile:[appDelegate getArchivePath:self.user.userName]];
+        currentUser = currentUser? currentUser : self.user;
+        [currentUser addFinishedItem:self.sentenceIndex];
+        [appDelegate archiveUser:currentUser ToFile:[appDelegate getArchivePath:self.user.userName]];
     }
 }
 
