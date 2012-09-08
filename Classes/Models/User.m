@@ -21,6 +21,7 @@ static NSString *kNameKey = @"name";
 
 @implementation User
 @synthesize userName;
+@synthesize finishedList, uploadedList;
 
 - (BOOL)checkExisted:(NSUInteger)index; {
     if (!_finishedList) {

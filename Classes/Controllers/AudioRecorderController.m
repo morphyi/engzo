@@ -34,6 +34,7 @@
 @synthesize recording;
 @synthesize sentenceList, sentenceIndex;
 @synthesize user;
+@synthesize player;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -97,8 +98,10 @@
         //Stop the recorder.
 		[recorder stop];
         
-        [self.user addFinishedItem:self.sentenceIndex];
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        User *currentUser = [appDelegate getUserFromFile:[appDelegate getArchivePath:self.user.userName]];
+        [self.user addFinishedItem:self.sentenceIndex];
+
         [appDelegate archiveUser:self.user ToFile:[appDelegate getArchivePath:self.user.userName]];
     }
 }
