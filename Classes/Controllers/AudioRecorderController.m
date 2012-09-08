@@ -81,13 +81,8 @@
         }
         
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate uploadOnlyWhenWifiAvailiable:[RKClient sharedClient].reachabilityObserver];
+        [appDelegate uploadOnlyWhenWifiAvailiable];
     }
-}
-
-- (void)dealloc
-{
-    [RKClient setSharedClient:nil];
 }
 
 - (IBAction)record_button_pressed:(id)sender {
@@ -191,27 +186,5 @@
         }
     };
 }
-
-#pragma mark - RKRequest Delegate
-- (void)requestDidStartLoad:(RKRequest *)request
-{
-    NSLog(@"requestDidStartLoad");
-}
-
-- (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
-{
-    NSLog(@"didSendBodyData");
-}
-
-- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
-{
-    NSLog(@"didLoadResponse:%@%@",[response isOK]?@"success":@"fail", [response bodyAsString]);
-}
-
-- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error
-{
-    NSLog(@"didFailLoadWithError:%@",error);
-}
-
 
 @end

@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
-#import <RestKit/RestKit.h>
 
-@interface AudioRecorderController : UIViewController <RKRequestDelegate>
+@interface AudioRecorderController : UIViewController
 @property (copy, nonatomic) NSArray *sentenceList;
 @property (assign, nonatomic) NSUInteger sentenceIndex;
 @property (weak, nonatomic) User *user;

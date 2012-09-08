@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <RestKit/RKReachabilityObserver.h>
 #import "UserSelectController.h"
 #import "TrainingAudio.h"
 #import <Crashlytics/Crashlytics.h>
@@ -27,7 +26,6 @@ NSURL *gBaseURL = nil;
 @end
 
 @implementation AppDelegate
-@synthesize client;
 @synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -35,13 +33,6 @@ NSURL *gBaseURL = nil;
     [Flurry startSession:@"C8JJ7M84J3WKBDM53PTN"];
     
     gBaseURL = [[NSURL alloc] initWithString:@"http://www.liulishuo.com/"];
-    self.client = [RKClient clientWithBaseURL:gBaseURL];
-    [RKClient setSharedClient:self.client];
-    
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(reachabilityChanged:)
-    //                                                 name:RKReachabilityDidChangeNotification
-    //                                               object:self.client.reachabilityObserver];
     
     self.reach = [Reachability reachabilityWithHostname:@"www.liulishuo.com"];
     
@@ -84,13 +75,12 @@ NSURL *gBaseURL = nil;
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     NSLog(@"applicationDidBecomeActive");
-    [self uploadOnlyWhenWifiAvailiable:self.client.reachabilityObserver];
+    [self uploadOnlyWhenWifiAvailiable];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [[RKClient sharedClient].requestQueue cancelRequestsWithDelegate:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -192,7 +182,7 @@ NSURL *gBaseURL = nil;
     }
 }
 
-- (void)uploadOnlyWhenWifiAvailiable:(RKReachabilityObserver *)observer {
+- (void)uploadOnlyWhenWifiAvailiable {
     if ([self.reach isReachableViaWiFi]) {
         NSLog(@"wifi available");
 //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -201,67 +191,11 @@ NSURL *gBaseURL = nil;
     } else {
         NSLog(@"no wifi");
     }
-    
-//    if ([observer isReachabilityDetermined] && [observer isNetworkReachable]) {
-//        if ([observer isConnectionRequired]) {
-//            NSLog(@"Connection is available...");
-//            return;
-//        }
-//        
-//        if (RKReachabilityReachableViaWiFi == [observer networkStatus]) {
-//            NSLog(@"Online via WiFi!");
-//            
-//        }
-//    } else {
-//        NSLog(@"restkit Network unreachable!");
-//    }
-    
 }
 
 #pragma mark - Reachability Related
 - (void)reachabilityChanged:(NSNotification*)notification {
-    [self uploadOnlyWhenWifiAvailiable:nil];
-    //    if ([notification.object isMemberOfClass:[RKReachabilityObserver  class]]) {
-    //        RKReachabilityObserver *observer = (RKReachabilityObserver *)[notification object];
-    //        [self uploadOnlyWhenWifiAvailiable:observer];
-    //    }
-}
-
-#pragma mark - RKRequest Delegate
-- (void)requestDidStartLoad:(RKRequest *)request
-{
-    NSLog(@"requestDidStartLoad");
-}
-
-- (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
-{
-    NSLog(@"didSendBodyData");
-}
-
-- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
-{
-    NSDictionary *requestId = [request userData];
-    User *user = [requestId objectForKey:@"user"];
-    NSNumber *index = [requestId objectForKey:@"index"];
-    [user addUploadeddItem:index.unsignedIntegerValue];
-    [self archiveUser:user ToFile:[self getArchivePath:user.userName]];
-    
-    NSLog(@"didLoadResponse:%@%@",[response isOK]?@"success":@"fail", [response bodyAsString]);
-}
-
-- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error
-{
-    NSLog(@"didFailLoadWithError:%@",error);
-}
-
-- (void)requestDidTimeout:(RKRequest *)request
-{
-    NSLog(@"Request timed out during background processing");
-}
-
-- (void)requestDidCancelLoad:(RKRequest *)request
-{
-    NSLog(@"Request canceled");
+    [self uploadOnlyWhenWifiAvailiable];
 }
 
 @end
