@@ -14,6 +14,7 @@
 #import <AFNetworking.h>
 #import <Reachability.h>
 #import <AFHTTPClient.h>
+#import "MobClick.h"
 
 static NSString *kArchiveKey = @"userArchive";
 NSURL *gBaseURL = nil;
@@ -32,6 +33,8 @@ NSURL *gBaseURL = nil;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Flurry startSession:@"C8JJ7M84J3WKBDM53PTN"];
+    [MobClick startWithAppkey:@"50489cba52701510ec00000a" reportPolicy:(ReportPolicy) REALTIME channelId:nil];
+
     
     gBaseURL = [[NSURL alloc] initWithString:@"http://www.liulishuo.com/"];
     
@@ -143,11 +146,8 @@ NSURL *gBaseURL = nil;
         NSString *path = [self getArchivePath:email];
         User *user = [self getUserFromFile:path];
         [user addUploadeddItem:index];
-        NSLog(@"uploadlistxx:%@", user.uploadedList);
         [self archiveUser:user ToFile:path];
-        user = [self getUserFromFile:path];
-        NSLog(@"uploadlistxxxx:%@", user.uploadedList);
-        
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"error: %@", operation.responseString);

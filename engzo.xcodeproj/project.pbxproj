@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3418614115FA296F0075AD58 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3418614015FA296F0075AD58 /* libFlurry.a */; };
+		3495004915FB7D130086572A /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3495004815FB7D130086572A /* libMobClickLibrary.a */; };
+		3495004B15FB7F6F0086572A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3495004A15FB7F6F0086572A /* libz.dylib */; };
 		34C2F6F815F727EE00324C09 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C2F6FA15F727EE00324C09 /* InfoPlist.strings */; };
 		34C2F72D15F7546200324C09 /* TrainingAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C2F72C15F7546200324C09 /* TrainingAudio.m */; };
 		34F0A17915F4F39500D36363 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F0A17815F4F39500D36363 /* AVFoundation.framework */; };
@@ -31,6 +33,9 @@
 		2C6AF3FDA3FE428BA2087DD0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3418614015FA296F0075AD58 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		3418614615FA2A600075AD58 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		3495004615FB7CEC0086572A /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		3495004815FB7D130086572A /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		3495004A15FB7F6F0086572A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		34C2F6F915F727EE00324C09 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		34C2F6FB15F727F500324C09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		34C2F72B15F7546200324C09 /* TrainingAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingAudio.h; sourceTree = "<group>"; };
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3495004B15FB7F6F0086572A /* libz.dylib in Frameworks */,
 				34F0A17B15F4F3B000D36363 /* CoreAudio.framework in Frameworks */,
 				34F0A17915F4F39500D36363 /* AVFoundation.framework in Frameworks */,
 				34F64D4815F4ED3400A9F8CE /* UIKit.framework in Frameworks */,
@@ -73,6 +79,7 @@
 				F9CCB1F93FC540FD95A273E6 /* libPods.a in Frameworks */,
 				6051BB4A15F8D243008CB33C /* Crashlytics.framework in Frameworks */,
 				3418614115FA296F0075AD58 /* libFlurry.a in Frameworks */,
+				3495004915FB7D130086572A /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +89,7 @@
 		3418614515FA2A1B0075AD58 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				3495004615FB7CEC0086572A /* MobClick.h */,
 				3418614615FA2A600075AD58 /* Flurry.h */,
 			);
 			path = Helper;
@@ -154,6 +162,7 @@
 		34F64D3815F4ED3400A9F8CE = {
 			isa = PBXGroup;
 			children = (
+				3495004A15FB7F6F0086572A /* libz.dylib */,
 				34F0A1EE15F7053A00D36363 /* Classes */,
 				34F0A1B415F6004500D36363 /* Resources */,
 				34F0A20E15F7069700D36363 /* Other Sources */,
@@ -174,6 +183,7 @@
 		34F64D4615F4ED3400A9F8CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3495004815FB7D130086572A /* libMobClickLibrary.a */,
 				3418614015FA296F0075AD58 /* libFlurry.a */,
 				6051BB4915F8D243008CB33C /* Crashlytics.framework */,
 				34F0A17A15F4F3B000D36363 /* CoreAudio.framework */,
