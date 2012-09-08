@@ -27,6 +27,7 @@ NSURL *gBaseURL = nil;
 
 @implementation AppDelegate
 @synthesize window;
+@synthesize reach;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
