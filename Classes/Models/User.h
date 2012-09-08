@@ -11,8 +11,8 @@
 @interface User : NSObject <NSCoding> {
 }
 
-@property (copy, readonly, nonatomic) NSArray *uploadedList; //已上传的sentence的编号
-@property (copy, readonly, nonatomic) NSArray *finishedList; //已录过的sentence的编号
+@property (readonly, nonatomic) NSArray *uploadedList; //已上传的sentence的编号
+@property (readonly, nonatomic) NSArray *finishedList; //已录过的sentence的编号
 @property (strong, nonatomic) NSString *userName;
 
 - (BOOL)checkExisted:(NSUInteger)index;//检查是否已录过，不要重复添加

@@ -15,7 +15,7 @@
 #import <Reachability.h>
 #import <AFHTTPClient.h>
 
-static NSString *kArchiveKey = @"archive";
+static NSString *kArchiveKey = @"userArchive";
 NSURL *gBaseURL = nil;
 
 @interface AppDelegate ()
