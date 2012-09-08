@@ -20,9 +20,8 @@ static NSString *kArchiveKey = @"archive";
 NSURL *gBaseURL = nil;
 
 @interface AppDelegate ()
-- (void)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andRequestId:(id)id;
+- (void)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andSentenceIndex:(NSUInteger)index;
 - (void)uploadAllRecords;
-- (void)uploadOnlyWhenWifiAvailiable:(RKReachabilityObserver *)observer;
 
 @property Reachability *reach;
 @end
@@ -39,10 +38,10 @@ NSURL *gBaseURL = nil;
     self.client = [RKClient clientWithBaseURL:gBaseURL];
     [RKClient setSharedClient:self.client];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(reachabilityChanged:)
-//                                                 name:RKReachabilityDidChangeNotification
-//                                               object:self.client.reachabilityObserver];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                             selector:@selector(reachabilityChanged:)
+    //                                                 name:RKReachabilityDidChangeNotification
+    //                                               object:self.client.reachabilityObserver];
     
     self.reach = [Reachability reachabilityWithHostname:@"www.liulishuo.com"];
     
@@ -110,7 +109,10 @@ NSURL *gBaseURL = nil;
     if ([fileManager fileExistsAtPath: path]){
         NSData *data = [[NSData alloc] initWithContentsOfFile: path];
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
-        return (User *)[unarchiver decodeObjectForKey:kArchiveKey];
+        User *user = (User *)[unarchiver decodeObjectForKey:kArchiveKey];
+        [unarchiver finishDecoding];
+        
+        return user;
     }
     
     return nil;
@@ -128,44 +130,41 @@ NSURL *gBaseURL = nil;
     return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent: [NSString stringWithFormat: @"%@%u.%@", userName, index, @"alac"]]];
 }
 
-- (void)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andRequestId:(id)id {
-    RKParams *params = [RKParams params];
-    [params setData:[email dataUsingEncoding:NSUTF8StringEncoding] forParam:@"training_audio[email]"];
-    [params setData:[text dataUsingEncoding:NSUTF8StringEncoding] forParam:@"training_audio[text]"];
+- (void)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andSentenceIndex:(NSUInteger)index {
+    AFHTTPClient *afclient= [[AFHTTPClient alloc] initWithBaseURL:gBaseURL];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:email forKey:@"training_audio[email]"];
+    [parameters setObject:text forKey:@"training_audio[text]"];
     
-    RKParamsAttachment *attachment = [params setData:audioData forParam:@"training_audio[audio]"];
-    attachment.MIMEType = @"applicaton/octet-stream";
-    attachment.fileName = fileName;
+    NSMutableURLRequest *request = [afclient multipartFormRequestWithMethod:@"POST" path:@"/training_audios.json" parameters:parameters constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+        [formData appendPartWithFileData:audioData name:@"training_audio[audio]" fileName:fileName mimeType:@"applicaton/octet-stream"];
+    }];
     
-    RKRequest *request = [[RKClient sharedClient] post:@"/training_audios.json" params:params delegate:self];
-    request.backgroundPolicy = RKRequestBackgroundPolicyContinue; // Continue the request in the background
-    request.userData = id;
-//    AFHTTPClient *afclient= [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://www.liulishuo.com"]];
-//    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//    [parameters setObject:email forKey:@"training_audio[email]"];
-//    [parameters setObject:text forKey:@"training_audio[text]"];
-//    
-//    NSMutableURLRequest *request = [afclient requestWithMethod:@"POST" path:@"/training_audios.json" parameters:nil];
-////    [afclient multipartFormRequestWithMethod:@"POST" path:@"/upload.php" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-////        //[formData appendPartWithFileData:data mimeType:@"image/jpeg" name:@"attachment"];
-////    }];
-//    //AFMultipartFormData *formData = [[AFMultipartFormData alloc] initWithURLRequest:request stringEncoding:NSUTF8StringEncoding];
-//    //
-//    //    if (parameters) {
-//    //        for (AFQueryStringComponent *component in AFQueryStringComponentsFromKeyAndValue(nil, parameters)) {
-//    //            NSData *data = nil;
-//    //            if ([component.value isKindOfClass:[NSData class]]) {
-//    //                data = component.value;
-//    //            } else {
-//    //                data = [[component.value description] dataUsingEncoding:self.stringEncoding];
-//    //            }
-//    //
-//    //            if (data) {
-//    //                [formData appendPartWithFormData:data name:[component.key description]];
-//    //            }
-//    //        }
-//    //    }
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"operation hasAcceptableStatusCode: %d", [operation.response statusCode]);
+        
+        NSLog(@"response string: %@ ", operation.responseString);
 
+        NSLog(@"upload index:%u", index);
+        NSString *path = [self getArchivePath:email];
+        User *user = [self getUserFromFile:path];
+        [user addUploadeddItem:index];
+        NSLog(@"uploadlistxx:%@", user.uploadedList);
+        [self archiveUser:user ToFile:path];
+        user = [self getUserFromFile:path];
+        NSLog(@"uploadlistxxxx:%@", user.uploadedList);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"error: %@", operation.responseString);
+        
+    }];
+    
+    [operation start];
+    
 }
 
 - (void)uploadAllRecords {
@@ -177,6 +176,8 @@ NSURL *gBaseURL = nil;
     for (NSString *userName in userList) {
         User *user = [self getUserFromFile:[self getArchivePath:userName]];
         NSLog(@"user:%@", user.userName);
+        NSLog(@"finishedList:%@", user.finishedList);
+        NSLog(@"uploadedList:%@", user.uploadedList);
         for (NSNumber *finishedIndex in user.finishedList) {
             if (![user.uploadedList containsObject:finishedIndex]) {
                 NSLog(@"unuploadedIndex:%@", finishedIndex);
@@ -184,8 +185,8 @@ NSURL *gBaseURL = nil;
                 audio.email = user.userName;
                 audio.text = [sentenceList objectAtIndex:finishedIndex.unsignedIntegerValue];
                 audio.path = [AppDelegate getRecordFilePath:user.userName forSentenceIndex:finishedIndex.unsignedIntegerValue];
-                NSDictionary *requestId = [NSDictionary dictionaryWithKeysAndObjects:@"user", user, @"index", finishedIndex, nil];
-                [self uploadRecord:[audio audioData] withFileName:[NSString stringWithFormat: @"%@%@.%@", userName, finishedIndex, @"alac"] andEmail:audio.email andText:audio.text andRequestId:requestId];
+                
+                [self uploadRecord:[audio audioData] withFileName:[NSString stringWithFormat: @"%@%@.%@", userName, finishedIndex, @"alac"] andEmail:audio.email andText:audio.text andSentenceIndex:finishedIndex.unsignedIntegerValue];
             }
         }
     }
@@ -194,36 +195,36 @@ NSURL *gBaseURL = nil;
 - (void)uploadOnlyWhenWifiAvailiable:(RKReachabilityObserver *)observer {
     if ([self.reach isReachableViaWiFi]) {
         NSLog(@"wifi available");
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             [self uploadAllRecords];
-        });
+//        });
     } else {
         NSLog(@"no wifi");
     }
-
-    if ([observer isReachabilityDetermined] && [observer isNetworkReachable]) {
-        if ([observer isConnectionRequired]) {
-            NSLog(@"Connection is available...");
-            return;
-        }
-        
-        if (RKReachabilityReachableViaWiFi == [observer networkStatus]) {
-            NSLog(@"Online via WiFi!");
-            
-        }
-    } else {
-        NSLog(@"restkit Network unreachable!");
-    }
-
+    
+//    if ([observer isReachabilityDetermined] && [observer isNetworkReachable]) {
+//        if ([observer isConnectionRequired]) {
+//            NSLog(@"Connection is available...");
+//            return;
+//        }
+//        
+//        if (RKReachabilityReachableViaWiFi == [observer networkStatus]) {
+//            NSLog(@"Online via WiFi!");
+//            
+//        }
+//    } else {
+//        NSLog(@"restkit Network unreachable!");
+//    }
+    
 }
 
 #pragma mark - Reachability Related
 - (void)reachabilityChanged:(NSNotification*)notification {
     [self uploadOnlyWhenWifiAvailiable:nil];
-//    if ([notification.object isMemberOfClass:[RKReachabilityObserver  class]]) {
-//        RKReachabilityObserver *observer = (RKReachabilityObserver *)[notification object];
-//        [self uploadOnlyWhenWifiAvailiable:observer];
-//    }
+    //    if ([notification.object isMemberOfClass:[RKReachabilityObserver  class]]) {
+    //        RKReachabilityObserver *observer = (RKReachabilityObserver *)[notification object];
+    //        [self uploadOnlyWhenWifiAvailiable:observer];
+    //    }
 }
 
 #pragma mark - RKRequest Delegate

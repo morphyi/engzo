@@ -38,6 +38,11 @@ static NSString *kArchiveKey = @"archive";
     // Release any retained subviews of the main view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [self archiveListToFile:[UserSelectController getUserListArchivePath]];
+    [super viewWillDisappear:animated];
+}
+
 - (void)dealloc {
     [self archiveListToFile:[UserSelectController getUserListArchivePath]];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"didEnterBackground" object:nil];
@@ -93,7 +98,9 @@ static NSString *kArchiveKey = @"archive";
     if ([fileManager fileExistsAtPath: path]){
         NSData *data = [[NSData alloc] initWithContentsOfFile: path];
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
-        return [unarchiver decodeObjectForKey:kArchiveKey];
+        id result = [unarchiver decodeObjectForKey:kArchiveKey];
+        [unarchiver finishDecoding];
+        return result;
     }
     
     return nil;

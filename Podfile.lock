@@ -1,5 +1,5 @@
 PODS:
-  - AFNetworking (0.9.2)
+  - AFNetworking (0.10.0)
   - FileMD5Hash (0.0.1)
   - ISO8601DateFormatter (0.6)
   - JSONKit (1.5pre)
@@ -33,6 +33,6 @@ PODS:
     - NSData+Base64 (~> 1.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 0.9.2)
+  - AFNetworking (~> 0.10.0)
   - Reachability (~> 3.0.0)
   - RestKit (~> 0.10.2)
