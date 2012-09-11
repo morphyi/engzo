@@ -393,8 +393,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2EB00E93-675B-4B36-9BFA-481EAE352564";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2EB00E93-675B-4B36-9BFA-481EAE352564";
+				PROVISIONING_PROFILE = "256F1890-1C7B-4496-9314-AEF711AAB758";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "256F1890-1C7B-4496-9314-AEF711AAB758";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -403,8 +403,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 47E4B355EDD242B8AF382E24 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zheren Hu";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zheren Hu";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -418,8 +418,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2EB00E93-675B-4B36-9BFA-481EAE352564";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2EB00E93-675B-4B36-9BFA-481EAE352564";
+				PROVISIONING_PROFILE = "18DE6567-8E86-4B7B-9173-D733B542161F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "18DE6567-8E86-4B7B-9173-D733B542161F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
