@@ -9,7 +9,7 @@
 #import "User.h"
 
 static NSString *kFinishedKey = @"finished";
-static NSString *kUploadedKey = @"uploaded";
+static NSString *kUploadedKey = @"uploadedNew";
 static NSString *kNameKey = @"name";
 
 @interface User () {
