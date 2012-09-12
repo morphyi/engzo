@@ -81,8 +81,8 @@
             [recorder stop];
         }
         
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate uploadOnlyWhenWifiAvailiable];
+        //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        //[appDelegate uploadOnlyWhenWifiAvailiable];
     }
 }
 

@@ -87,6 +87,11 @@ static NSString *kArchiveKey = @"archive";
     
     return cell;
 }
+- (IBAction)uploadPressed {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    [appDelegate uploadOnlyWhenWifiAvailiable];
+}
 
 #pragma mark - Table view delegate
 
