@@ -18,4 +18,5 @@
 - (BOOL)checkExisted:(NSUInteger)index;//检查是否已录过，不要重复添加
 - (void)addFinishedItem:(NSUInteger)index;
 - (void)addUploadeddItem:(NSUInteger)index;
+- (void)removeUploadeddItem:(NSUInteger)index;
 @end
