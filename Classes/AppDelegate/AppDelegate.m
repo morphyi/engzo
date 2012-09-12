@@ -242,6 +242,7 @@ NSURL *gBaseURL = nil;
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
                 [parameters setObject:audio.email forKey:@"training_audio[email]"];
                 [parameters setObject:audio.text forKey:@"training_audio[text]"];
+                [parameters setObject:finishedIndex forKey:@"training_audio[text_index]"];
                 
                 NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/training_audios.json" parameters:parameters constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
                     [formData appendPartWithFileData:[audio audioData] name:@"training_audio[audio]" fileName:[NSString stringWithFormat: @"%@%@.%@", user.userName, finishedIndex, @"alac"] mimeType:@"applicaton/octet-stream"];
