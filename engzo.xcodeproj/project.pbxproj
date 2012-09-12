@@ -402,7 +402,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
-				CURRENT_PROJECT_VERSION = 0.1.1;
+				CURRENT_PROJECT_VERSION = 0.2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -431,7 +431,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Zheren Hu";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zheren Hu";
-				CURRENT_PROJECT_VERSION = 0.1.1;
+				CURRENT_PROJECT_VERSION = 0.2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
