@@ -81,8 +81,8 @@
             [recorder stop];
         }
         
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate uploadOnlyWhenWifiAvailiable];
+        //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        //[appDelegate uploadOnlyWhenWifiAvailiable];
     }
 }
 
@@ -102,6 +102,7 @@
         User *currentUser = [appDelegate getUserFromFile:[appDelegate getArchivePath:self.user.userName]];
         currentUser = currentUser? currentUser : self.user;
         [currentUser addFinishedItem:self.sentenceIndex];
+        [currentUser removeUploadeddItem:self.sentenceIndex];
         [appDelegate archiveUser:currentUser ToFile:[appDelegate getArchivePath:self.user.userName]];
     }
 }
