@@ -57,6 +57,14 @@ static NSString *kNameKey = @"name";
     [_uploadedList addObject:[[NSNumber alloc] initWithUnsignedInteger:index]];
 }
 
+- (void)removeUploadeddItem:(NSUInteger)index {
+    if (!_uploadedList) {
+        _uploadedList = [[NSMutableArray alloc] init];
+    }
+    
+    [_uploadedList removeObject:[[NSNumber alloc] initWithUnsignedInteger:index]];
+}
+
 - (NSArray *)getFinishedList {
     return [[NSArray alloc] initWithArray:_finishedList];
 }
