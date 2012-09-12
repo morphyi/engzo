@@ -26,6 +26,9 @@
 		34F64D4A15F4ED3400A9F8CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4915F4ED3400A9F8CE /* Foundation.framework */; };
 		34F64D4C15F4ED3400A9F8CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34F64D4B15F4ED3400A9F8CE /* CoreGraphics.framework */; };
 		6051BB4A15F8D243008CB33C /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6051BB4915F8D243008CB33C /* Crashlytics.framework */; };
+		60CC5B4B16002A600022EE52 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CC5B4716002A600022EE52 /* libTestFlight.a */; };
+		60CC5B4C16002A600022EE52 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 60CC5B4816002A600022EE52 /* README.txt */; };
+		60CC5B4D16002A600022EE52 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 60CC5B4916002A600022EE52 /* release_notes.txt */; };
 		F9CCB1F93FC540FD95A273E6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AF3FDA3FE428BA2087DD0 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +66,10 @@
 		34F64D4B15F4ED3400A9F8CE /* CoreGraphics.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		47E4B355EDD242B8AF382E24 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		6051BB4915F8D243008CB33C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		60CC5B4716002A600022EE52 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		60CC5B4816002A600022EE52 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		60CC5B4916002A600022EE52 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		60CC5B4A16002A600022EE52 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +87,7 @@
 				6051BB4A15F8D243008CB33C /* Crashlytics.framework in Frameworks */,
 				3418614115FA296F0075AD58 /* libFlurry.a in Frameworks */,
 				3495004915FB7D130086572A /* libMobClickLibrary.a in Frameworks */,
+				60CC5B4B16002A600022EE52 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +170,7 @@
 		34F64D3815F4ED3400A9F8CE = {
 			isa = PBXGroup;
 			children = (
+				60CC5B4616002A600022EE52 /* TestFlightSDK1.0 */,
 				3495004A15FB7F6F0086572A /* libz.dylib */,
 				34F0A1EE15F7053A00D36363 /* Classes */,
 				34F0A1B415F6004500D36363 /* Resources */,
@@ -194,6 +203,17 @@
 				2C6AF3FDA3FE428BA2087DD0 /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		60CC5B4616002A600022EE52 /* TestFlightSDK1.0 */ = {
+			isa = PBXGroup;
+			children = (
+				60CC5B4716002A600022EE52 /* libTestFlight.a */,
+				60CC5B4816002A600022EE52 /* README.txt */,
+				60CC5B4916002A600022EE52 /* release_notes.txt */,
+				60CC5B4A16002A600022EE52 /* TestFlight.h */,
+			);
+			path = TestFlightSDK1.0;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +273,8 @@
 				34F0A21E15F7088000D36363 /* sentences.plist in Resources */,
 				34F0A24115F722B100D36363 /* MainStoryboard.storyboard in Resources */,
 				34C2F6F815F727EE00324C09 /* InfoPlist.strings in Resources */,
+				60CC5B4C16002A600022EE52 /* README.txt in Resources */,
+				60CC5B4D16002A600022EE52 /* release_notes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +402,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ben Hu (L9QTJUSRSQ)";
+				CURRENT_PROJECT_VERSION = 0.1.1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -391,10 +414,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/TestFlightSDK1.0\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "256F1890-1C7B-4496-9314-AEF711AAB758";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "256F1890-1C7B-4496-9314-AEF711AAB758";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -405,6 +431,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Zheren Hu";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zheren Hu";
+				CURRENT_PROJECT_VERSION = 0.1.1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -416,10 +443,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/TestFlightSDK1.0\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "18DE6567-8E86-4B7B-9173-D733B542161F";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "18DE6567-8E86-4B7B-9173-D733B542161F";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

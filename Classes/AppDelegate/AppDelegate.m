@@ -34,6 +34,7 @@ NSURL *gBaseURL = nil;
 {
     [Flurry startSession:@"C8JJ7M84J3WKBDM53PTN"];
     [MobClick startWithAppkey:@"50489cba52701510ec00000a" reportPolicy:(ReportPolicy) REALTIME channelId:nil];
+    [TestFlight takeOff:@"5bcb9d06f6bf1992c7980c398a75c8e2_MTMwODYzMjAxMi0wOS0xMSAwODo1MDo1Ny41MDMwNTU"];
 
     
     gBaseURL = [[NSURL alloc] initWithString:@"http://www.liulishuo.com/"];
