@@ -16,6 +16,8 @@ static NSString *kArchiveKey = @"archive";
 @interface SentenceListController ()
 @property (strong, nonatomic) NSArray *sentenceList;
 @property (strong, nonatomic) User *user;
+@property (weak, nonatomic) IBOutlet UIButton *uploadButton;
+@property (strong, nonatomic) UIView *loadingView;
 
 -(BOOL)isFinished:(NSUInteger)index;//第index＋1条sentence是否已录制过
 @end
@@ -23,7 +25,9 @@ static NSString *kArchiveKey = @"archive";
 @implementation SentenceListController
 @synthesize sentenceList;
 @synthesize user;
+@synthesize uploadButton;
 @synthesize userName;
+@synthesize loadingView;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,7 +45,17 @@ static NSString *kArchiveKey = @"archive";
     self.title = @"例句";
     
     NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"sentences" ofType:@"plist"];
-    self.sentenceList = [NSArray arrayWithContentsOfFile:plistPath];
+    self.sentenceList = [NSArray arrayWithContentsOfFile:plistPath]; 
+
+    loadingView = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width/2 - 40, self.tableView.frame.size.height/2 - 40, 80, 80)];
+    loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.75];
+    loadingView.hidden = YES;
+    
+    UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    aiv.center = CGPointMake(loadingView.bounds.size.width/2, loadingView.bounds.size.height/2);
+    [loadingView addSubview:aiv];
+    [aiv startAnimating];
+    [self.tableView addSubview:loadingView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,6 +72,7 @@ static NSString *kArchiveKey = @"archive";
 
 - (void)viewDidUnload
 {
+    [self setUploadButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -88,9 +103,10 @@ static NSString *kArchiveKey = @"archive";
     return cell;
 }
 - (IBAction)uploadPressed {
+    self.loadingView.hidden = NO; 
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    [appDelegate uploadOnlyWhenWifiAvailiable];
+    [appDelegate uploadOnlyWhenWifiAvailiable:self.loadingView];
 }
 
 #pragma mark - Table view delegate

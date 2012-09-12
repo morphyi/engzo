@@ -21,7 +21,7 @@ NSURL *gBaseURL = nil;
 
 @interface AppDelegate ()
 - (void)uploadRecord:(NSData *)audioData withFileName:(NSString *)fileName andEmail:(NSString *)email andText:(NSString *)text andSentenceIndex:(NSUInteger)index;
-- (void)uploadAllRecords;
+- (void)uploadAllRecords:(UIView *)loadingView;
 @property (readwrite, nonatomic, retain) NSOperationQueue *operationQueue;
 
 @property Reachability *reach;
@@ -215,7 +215,7 @@ NSURL *gBaseURL = nil;
     return request;
 }
 
-- (void)uploadAllRecords {
+- (void)uploadAllRecords:(UIView *)loadingView {
     NSLog(@"start upload all records");
     AFHTTPClient *httpClient= [[AFHTTPClient alloc] initWithBaseURL:gBaseURL];
     NSArray *sentenceList = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sentences" ofType:@"plist"]];
@@ -261,7 +261,7 @@ NSURL *gBaseURL = nil;
                     [user addUploadeddItem: [finishedIndex intValue]];
                     [self archiveUser:user ToFile:path];
                     
-                    [self uploadAllRecords];
+                    [self uploadAllRecords:loadingView];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     
                     NSLog(@"error: %@", operation.responseString);
@@ -273,13 +273,16 @@ NSURL *gBaseURL = nil;
             }
         }
     }
+    if(nothing) {
+        loadingView.hidden = YES;
+    }
 }
 
-- (void)uploadOnlyWhenWifiAvailiable {
+- (void)uploadOnlyWhenWifiAvailiable:(UIView *)loadingView {
     if ([self.reach isReachableViaWiFi]) {
         NSLog(@"wifi available");
 //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [self uploadAllRecords];
+        [self uploadAllRecords:loadingView];
 //        });
     } else {
         NSLog(@"no wifi");

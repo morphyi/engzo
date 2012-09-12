@@ -21,5 +21,5 @@ extern NSURL *gBaseURL;
 - (NSString *)getArchivePath:(NSString *)userName;
 - (User *)getUserFromFile:(NSString *)path;
 - (void)archiveUser:(User *)aUser ToFile:(NSString*)path;
-- (void)uploadOnlyWhenWifiAvailiable;
+- (void)uploadOnlyWhenWifiAvailiable:(UIView *)loadingView;
 @end
