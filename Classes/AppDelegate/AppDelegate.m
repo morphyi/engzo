@@ -41,7 +41,7 @@ NSURL *gBaseURL = nil;
     self.operationQueue = [[NSOperationQueue alloc] init];
     [self.operationQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
     
-    gBaseURL = [[NSURL alloc] initWithString:@"http://localhost:3000/"];
+    gBaseURL = [[NSURL alloc] initWithString:@"http://www.liulishuo.com/"];
     
     self.reach = [Reachability reachabilityWithHostname:@"www.liulishuo.com"];
     
