@@ -218,33 +218,26 @@ NSURL *gBaseURL = nil;
 - (void)uploadAllRecords {
     NSLog(@"start upload all records");
     AFHTTPClient *httpClient= [[AFHTTPClient alloc] initWithBaseURL:gBaseURL];
-    NSMutableArray *operations = [NSMutableArray array];
-
     NSArray *sentenceList = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sentences" ofType:@"plist"]];
-    
     NSMutableArray *userList = [UserSelectController getUserListFromFile:[UserSelectController getUserListArchivePath]];
     
     BOOL nothing = YES;
     
-    //for (NSString *userName in userList) {
-        User *user = [self getUserFromFile:[self getArchivePath:@"test@test.com"]];
+    for (NSString *userName in userList) {
+        User *user = [self getUserFromFile:[self getArchivePath:userName]];
         NSLog(@"user:%@", user.userName);
         NSLog(@"finishedList:%@", user.finishedList);
         NSLog(@"uploadedList:%@", user.uploadedList);
         for (NSNumber *finishedIndex in user.finishedList) {
             if (nothing && ![user.uploadedList containsObject:finishedIndex]) {
                 nothing = NO;
+                
                 NSLog(@"unuploadedIndex:%@", finishedIndex);
+                
                 TrainingAudio *audio = [[TrainingAudio alloc] init];
                 audio.email = user.userName;
                 audio.text = [sentenceList objectAtIndex:finishedIndex.unsignedIntegerValue];
                 audio.path = [AppDelegate getRecordFilePath:user.userName forSentenceIndex:finishedIndex.unsignedIntegerValue];
-                
-                //[operations addObject:[self getRequestOperation:httpClient withAudio:[audio audioData] withFileName:[NSString stringWithFormat: @"%@%@.%@", userName, finishedIndex, @"alac"] andEmail:audio.email andText:audio.text andSentenceIndex:finishedIndex.unsignedIntegerValue]];
-                
-//                [self uploadRecord:[audio audioData] withFileName:[NSString stringWithFormat: @"%@%@.%@", userName, finishedIndex, @"alac"] andEmail:audio.email andText:audio.text andSentenceIndex:finishedIndex.unsignedIntegerValue];
-                
-                //AFHTTPClient *afclient= [[AFHTTPClient alloc] initWithBaseURL:gBaseURL];
                 
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
                 [parameters setObject:audio.email forKey:@"training_audio[email]"];
@@ -253,8 +246,6 @@ NSURL *gBaseURL = nil;
                 NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/training_audios.json" parameters:parameters constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
                     [formData appendPartWithFileData:[audio audioData] name:@"training_audio[audio]" fileName:[NSString stringWithFormat: @"%@%@.%@", user.userName, finishedIndex, @"alac"] mimeType:@"applicaton/octet-stream"];
                 }];
-                
-                //[request setTimeoutInterval:2];
                 
                 AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
                 
@@ -271,7 +262,6 @@ NSURL *gBaseURL = nil;
                     [self archiveUser:user ToFile:path];
                     
                     [self uploadAllRecords];
-                    
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     
                     NSLog(@"error: %@", operation.responseString);
@@ -282,18 +272,7 @@ NSURL *gBaseURL = nil;
 
             }
         }
-        
-//        for (AFHTTPRequestOperation *op in operations) {
-//            NSLog(@"print out request %@", [op.request allHTTPHeaderFields]);
-//            NSLog(@"%@",[op.request HTTPBody]);
-//        }
-//        
-//        [httpClient enqueueBatchOfHTTPRequestOperations:operations progressBlock:^(NSUInteger numberOfCompletedOperations, NSUInteger totalNumberOfOperations) {
-//            NSLog(@"%d out of %d is uploaded", numberOfCompletedOperations, totalNumberOfOperations);
-//        } completionBlock:^(NSArray *operations) {
-//            NSLog(@"all record is uploaded");
-//        }];
-    //}
+    }
 }
 
 - (void)uploadOnlyWhenWifiAvailiable {
