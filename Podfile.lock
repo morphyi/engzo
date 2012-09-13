@@ -1,9 +1,7 @@
 PODS:
   - AFNetworking (0.10.0)
-  - OpenEarsExt (0.0.4)
   - Reachability (3.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 0.10.0)
-  - OpenEarsExt (from `git@github.com:morphyi/engzo-scoring.git', tag `0.0.4')
   - Reachability (~> 3.0.0)
