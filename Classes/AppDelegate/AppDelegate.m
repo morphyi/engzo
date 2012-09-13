@@ -34,9 +34,15 @@ NSURL *gBaseURL = nil;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+#define TESTING 1
+#ifdef TESTING
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+#endif
     [Flurry startSession:@"C8JJ7M84J3WKBDM53PTN"];
     [MobClick startWithAppkey:@"50489cba52701510ec00000a" reportPolicy:(ReportPolicy) REALTIME channelId:nil];
-    [TestFlight takeOff:@"5bcb9d06f6bf1992c7980c398a75c8e2_MTMwODYzMjAxMi0wOS0xMSAwODo1MDo1Ny41MDMwNTU"];
+    [TestFlight takeOff:@"5bcb9d06f6bf1992c7980c398a75c8e2_MTMwODYzMjAxMi0wOS0xMSAwODo1MDo1Ny41MDMwNTU"];   
+
 
     self.operationQueue = [[NSOperationQueue alloc] init];
     [self.operationQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
