@@ -3,5 +3,5 @@ PODS:
   - Reachability (3.0.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 0.10.0)
+  - AFNetworking (from `https://github.com/AFNetworking/AFNetworking.git')
   - Reachability (~> 3.0.0)
